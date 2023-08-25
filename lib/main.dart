@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:house_cleaning/ui/authentication/login_page.dart';
+import 'package:house_cleaning/ui/home/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -12,9 +14,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  static const bool auth=false;
+  //TODO change to firebase here after adding firebase
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SafeArea(child: auth ? LoginPage() : HomePage()),
+    );
   }
 }
-
