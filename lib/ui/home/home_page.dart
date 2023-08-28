@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:house_cleaning/ui/authentication/login_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,7 +48,12 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text('Login'),
@@ -55,7 +61,9 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 10),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 child: Text('Forgot Password?'),
               ),
               SizedBox(height: 20),
