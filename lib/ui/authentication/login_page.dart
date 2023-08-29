@@ -4,6 +4,8 @@ import 'package:house_cleaning/ui/home/navigation_drawer.dart';
 import 'package:house_cleaning/ui/home/new_registration.dart';
 import 'package:house_cleaning/ui/home/search_assessment.dart';
 import 'package:house_cleaning/ui/home/property_details.dart';
+import 'package:house_cleaning/ui/home/descone.dart';
+import 'package:house_cleaning/ui/home/waste_collection.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -24,20 +26,42 @@ class _LoginPageState extends State<LoginPage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blueAccent,
               ),
-              child: Center(
-                child: Text(
-                  'Your Profile',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
+              padding: EdgeInsetsDirectional.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: AssetImage('assets/recycle.png'), // Replace with your image
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            "Make world a\ncleaner place ",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+
+                ],
               ),
             ),
+            // Add other menu items here
+
             ListTile(
               leading: Icon(Icons.search),
               title: Text('Search assessment number'),
@@ -86,8 +110,22 @@ class _LoginPageState extends State<LoginPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => DescriptionPage()),
+                  // MaterialPageRoute(builder: (context)=>DescPage())
                 );
               },
+            ),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.delete),
+                title: Text('Waste Collection'),
+                onTap: () {
+                  // Implement the action when Information is tapped
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => WasteCollectionPage()),
+                    // MaterialPageRoute(builder: (context)=>DescPage())
+                  );
+                },
             ),
           ],
         ),

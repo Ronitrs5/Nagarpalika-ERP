@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:house_cleaning/ui/home/description.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:house_cleaning/ui helper/pop_up_dialogue.dart';
 
 class PropertyDetails extends StatefulWidget {
   const PropertyDetails({Key? key}) : super(key: key);
@@ -24,37 +25,45 @@ class _PropertyDetailsState extends State<PropertyDetails> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(Icons.navigate_next),
-            iconSize: 35,// Add your desired icon here
+            icon: const Icon(Icons.info_outline_rounded),
+            iconSize: 24,// Add your desired icon here
             onPressed: () {
               // Add your icon button logic here
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
+              // Navigator.push(context, MaterialPageRoute(builder: (context)=>const DescriptionPage()));
+              _showCloudyMessagePopup(context);
             },
           ),
         ],
-        title: Text("Details of your property"),
+        title: const Text("Details of your property"),
+        backgroundColor: Colors.blueAccent,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: TextFormField(
-                decoration: InputDecoration(
+
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+              child: DropdownButtonFormField<int>(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.calendar_month),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
                   labelText: 'इमरत वापर सुरु झाल्येचे अर्थिक वर्ष:',
+
                 ),
+                items: generateYearItems(),
+                onChanged: (value) {
+                  // Handle the selected year value
+                },
               ),
             ),
 
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
               child: TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.numbers),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -72,7 +81,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'इमारतीचे प्रत:', // Radio group title
                         style: TextStyle(fontSize: 18.0),
                       ),
@@ -87,34 +96,34 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                   height: 1000,
                                   child: Column(
                                     children: [
-                                      ListTile(
+                                      const ListTile(
                                         title: Text('प्राकार अ: पहिल्या प्रतिचे बांधकाम'),
                                       ),
-                                      Divider(),
-                                      ListTile(
+                                      const Divider(),
+                                      const ListTile(
                                         title: Text('प्राकार ब: दुय्यम प्रतिचे बांधकाम'),
                                       ),
-                                      Divider(),
-                                      ListTile(
+                                      const Divider(),
+                                      const ListTile(
                                         title: Text('प्राकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
                                       ),
 
-                                      Divider(),
-                                      ListTile(
+                                      const Divider(),
+                                      const ListTile(
                                         title: Text('प्राकार ड: साधरण प्रतिचे बांधकाम'),
                                       ),
 
-                                      Divider(),
-                                      ListTile(
+                                      const Divider(),
+                                      const ListTile(
                                         title: Text('प्राकार इ: निकृष्ट प्रतिचे बांधकाम'),
                                       ),
 
-                                      Divider(),
-                                      ListTile(
+                                      const Divider(),
+                                      const ListTile(
                                         title: Text('प्राकार ई: तात्पुरते प्रतिचे बांधकाम'),
                                       ),
 
-                                      Divider(),
+                                      const Divider(),
 
                                       ElevatedButton(
                                         onPressed: () {
@@ -123,7 +132,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                         style: ElevatedButton.styleFrom(
                                           primary: Colors.green, // Set the button color to red
                                         ),
-                                        child: Text('In detail'),
+                                        child: const Text('In detail'),
                                       ),
 
                                       // ... Add more list items or widgets as needed
@@ -133,14 +142,14 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                               },
                             );
                           },
-                          child: Icon(Icons.info_outline_rounded),
+                          child: const Icon(Icons.info_outline_rounded),
                         ),
                       ),
 
                     ],
                   ),
                   RadioListTile(
-                    title: Text('प्राकार अ'),
+                    title: const Text('प्राकार अ'),
                     value: 1,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -148,7 +157,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('प्राकार ब'),
+                    title: const Text('प्राकार ब'),
                     value: 2,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -156,7 +165,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('प्राकार क'),
+                    title: const Text('प्राकार क'),
                     value: 3,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -164,7 +173,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('प्राकार ड'),
+                    title: const Text('प्राकार ड'),
                     value: 4,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -172,7 +181,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('प्राकार इ'),
+                    title: const Text('प्राकार इ'),
                     value: 5,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -180,7 +189,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('प्राकार ई'),
+                    title: const Text('प्राकार ई'),
                     value: 6,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -193,28 +202,38 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
             Padding(
               padding: const EdgeInsets.all(16),
-              child: TextFormField(
-                decoration: InputDecoration(
+              child: DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.add_road),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
                   labelText: 'इमरत समोर रस्ता: ',
                 ),
+                items: [
+                  const DropdownMenuItem(value: 'Option 1', child: Text('6 मीटर पर्यंत')),
+                  const DropdownMenuItem(value: 'Option 2', child: Text('6 ते 12 मीटर पर्यंत')),
+                  const DropdownMenuItem(value: 'Option 3', child: Text('12 ते 30 मीटर पर्यंत')),
+                  const DropdownMenuItem(value: 'Option 4', child: Text('30 मीटर पेक्षा अधिक')),
+                ],
+                onChanged: (value) {
+                  // Handle dropdown value change
+                },
               ),
             ),
+
 
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     'रस्ता:', // Radio group title
                     style: TextStyle(fontSize: 18.0),
                   ),
                   RadioListTile(
-                    title: Text('कच्चा'),
+                    title: const Text('कच्चा'),
                     value: 1,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -222,7 +241,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('पक्का'),
+                    title: const Text('पक्का'),
                     value: 2,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -240,12 +259,12 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     'सांडपाण्याची व्‍यवस्‍था:', // Radio group title
                     style: TextStyle(fontSize: 18.0),
                   ),
                   RadioListTile(
-                    title: Text('आहे'),
+                    title: const Text('आहे'),
                     value: 1,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -253,7 +272,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('नाही'),
+                    title: const Text('नाही'),
                     value: 2,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -270,12 +289,12 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     'पाणी कनेक्शन:', // Radio group title
                     style: TextStyle(fontSize: 18.0),
                   ),
                   RadioListTile(
-                    title: Text('आहे'),
+                    title: const Text('आहे'),
                     value: 1,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -283,7 +302,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('नाही'),
+                    title: const Text('नाही'),
                     value: 2,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -298,7 +317,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.person),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -311,7 +330,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.bathtub),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -327,12 +346,12 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
+                  const Text(
                     'ड्रेनेज:', // Radio group title
                     style: TextStyle(fontSize: 18.0),
                   ),
                   RadioListTile(
-                    title: Text('आहे'),
+                    title: const Text('आहे'),
                     value: 1,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -340,7 +359,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: Text('नाही'),
+                    title: const Text('नाही'),
                     value: 2,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -364,10 +383,11 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red, // Set the button color to red
                       ),
-                      child: Text('Clear'),
+                      child: const Text('रद'),
                     ),
                   ),
                 ),
+
                 Expanded(
                   flex: 1,
                   child: Padding(
@@ -375,11 +395,29 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     child: ElevatedButton(
                       onPressed: () {
                         // Handle the second button's onPressed action
+                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey, // Set the button color to green
+                      ),
+                      child: const Text('सेव'),
+                    ),
+                  ),
+                ),
+
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Handle the second button's onPressed action
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green, // Set the button color to green
                       ),
-                      child: Text('Save'),
+                      child: const Text('पुढे'),
                     ),
                   ),
                 ),
@@ -391,6 +429,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
     );
 
   }
+
   void _showImageDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -405,7 +444,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               width: double.infinity,
               height: double.infinity,
               child: PhotoView(
-                imageProvider: AssetImage('assets/info.jpeg'), // Replace with your image
+                imageProvider: const AssetImage('assets/info.jpeg'), // Replace with your image
                 minScale: PhotoViewComputedScale.contained * 0.8,
                 maxScale: PhotoViewComputedScale.covered * 2.5,
                 initialScale: PhotoViewComputedScale.contained,
@@ -417,5 +456,24 @@ class _PropertyDetailsState extends State<PropertyDetails> {
     );
   }
 
+  int currentYear = DateTime.now().year;
 
+  List<DropdownMenuItem<int>> generateYearItems() {
+    List<DropdownMenuItem<int>> items = [];
+    for (int year = 1900; year <= currentYear; year++) {
+      items.add(DropdownMenuItem(value: year, child: Text(year.toString())));
+    }
+    return items;
+  }
+  void _showCloudyMessagePopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return PopUpDialogue(
+          title: 'Disclaimer',
+          message: "First save and then proceed to next.\nUnsaved information won't be restored",
+        );
+      },
+    );
+  }
 }

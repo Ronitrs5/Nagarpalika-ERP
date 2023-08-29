@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DescriptionPage extends StatefulWidget {
-  const DescriptionPage({Key? key}) : super(key: key);
+  const DescriptionPage({super.key});
 
   @override
   State<DescriptionPage> createState() => _DescriptionPageState();
@@ -10,137 +10,202 @@ class DescriptionPage extends StatefulWidget {
 class _DescriptionPageState extends State<DescriptionPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Description"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+    return  Scaffold(
+        appBar: AppBar(
+          title: const Text("Description"),
+          backgroundColor: Colors.blueAccent,
+        ),
 
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                "मलाकाचे आगर वहिवाटदाराचे\nवापरतील जगेचे वर्णन: ",
-                style: TextStyle(
-                  fontSize: 20,
+      body:  SingleChildScrollView(
+         child: Column(
+            children: [
+               const Padding(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Text(
+                  "मालकाचे अगर वहिवाटदाराचे वापरातील जगेचे वर्णन",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
               ),
-            ),
 
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                child: DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    ),
+                    labelText: 'खोली प्रकार ',
+                  ),
+                  items: const [
+                    DropdownMenuItem<String>(
+                      value: 'मालका',
+                      child: Text('मालका'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'भाडेकर',
+                      child: Text('भाडेकर'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'भोगवतदार',
+                      child: Text('भोगवतदार'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'अन्य',
+                      child: Text('अन्य'),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    // Handle the selected value
+                  },
+                ),
+              ),
 
-            SizedBox(width: 16),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    ),
+                    labelText: 'मालकाचे, भाडेकरूचे/भोगवतदाराचे नाव',
+                  ),
+                ),
+              ),
 
-            Padding(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                    ),
+                    labelText: 'वापराचा प्राकार',
+                  ),
+                ),
+              ),
 
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16), // Add horizontal padding
-              child: Table(
-                border: TableBorder.all(color: Colors.black),
-                columnWidths: {
-                  0: FlexColumnWidth(1),
-                  1: FlexColumnWidth(2),
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildTableRow("खोली प्रकार:", "", ),
-                  _buildTableRow("मालकाचे, भाडेकरूचे/भोगवतदाराचेनाव :", "", ),
-                  _buildTableRow("वापराचा: प्राकार:", "", ),
-                  _buildTableRow("खोलीची रुंदी:", "", ),
-                  _buildTableRow("खोलीची लांबी:", "", ),
-                  _buildTableRow("एकुण क्षेत्र (चौ.मी.):", "", ),
-                  _buildTableRow("प्रत्यक्ष मासिक भाडे:", "", ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 8, 16),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                          ),
+                          labelText: 'खोलीची रुंदी',
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const Text(
+                    'x',
+                    style: TextStyle(fontSize: 24), // Adjust the font size as needed
+                  ),
+
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                          ),
+                          labelText: 'खोलीची लांबी',
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const Text(
+                    '=',
+                    style: TextStyle(fontSize: 24), // Adjust the font size as needed
+                  ),
+
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 16, 16),
+                      child: Center(
+                        child: TextFormField(
+                          enabled: false,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                            ),
+                            labelText: 'एकुण क्षेत्र',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
 
-            SizedBox(height: 16), // Add spacing
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Add your button logic here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.red, // Set the background color to red
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: Center(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                      ),
+                      labelText: 'प्रत्यक्ष मासिक भाडे',
+                    ),
                   ),
-                  child: Text("रद"),
                 ),
+              ),
 
+              const Divider(color: Colors.black,
+              indent: 8,
+              endIndent: 8,),
 
-                ElevatedButton(
-                  onPressed: () {
-                    // Add your button logic here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blueGrey, // Set the background color
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Handle the first button's onPressed action
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red, // Set the button color to red
+                        ),
+                        child: const Text('रद'),
+                      ),
+                    ),
                   ),
-                  child: Text("नवीन जोडा"),
-                ),
-
-                ElevatedButton(
-                  onPressed: () {
-                    // Add your button logic here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green, // Set the background color
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Handle the second button's onPressed action
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green, // Set the button color to green
+                        ),
+                        child: const Text('सेव आणि सबमिट'),
+                      ),
+                    ),
                   ),
-                  child: Text("सेव"),
-                ),
-              ],
-            ),
-            SizedBox(width: 16),
-
-          ],
-        ),
-
-
+                ],
+              ),
+            ],
+         ),
       ),
     );
   }
-
-  TableRow _buildTableRow(String labelText, String hintText) {
-    return TableRow(
-      children: [
-        TableCell(
-          child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              labelText,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-        TableCell(
-          child: Container(
-            color: Colors.grey[200], // Set your desired background color
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: hintText,
-                contentPadding: EdgeInsets.fromLTRB(16, 5, 16, 5),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-
 }
-
-
-void main() {
-  runApp(MaterialApp(
-    home: DescriptionPage(),
-  ));
-}
-
-

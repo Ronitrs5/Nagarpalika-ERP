@@ -14,6 +14,7 @@ class _SearchAssessmentState extends State<SearchAssessment> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Assessment Number"),
+        backgroundColor: Colors.blueAccent,
       ),
       body: SingleChildScrollView(
         child: Column(
