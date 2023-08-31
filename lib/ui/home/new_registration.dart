@@ -578,8 +578,8 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
 
                   ElevatedButton(
                     onPressed: () {
-                      // final newLatitude = _latitudeController.text;
-                      // final newLongitude = _longitudeController.text;
+                      final newLatitude = _latitudeController.text;
+                      final newLongitude = _longitudeController.text;
 
                       final newC1= c1.text;
                       final newC2= c2.text;
@@ -590,7 +590,9 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                       final newC7= c7.text;
                       final newC8= c8.text;
                       final newC9= c9.text;
+
                       updateUserDetails(newC1, newC2, newC3, newC4, newC5, newC6, newC7, newC8, newC9);
+                      // updateLocation(newLatitude, newLongitude);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.grey, // Set the button color to green
@@ -653,14 +655,23 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
   }
 
   Future<void> updateLocation(String newLatitude, String newLongitude) async {
-    final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyLocation'); // Replace with your API URL
+    final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyLocation');
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({
+      'latitude': newLatitude,
+      'longitude': newLongitude,
+    });
+
+    print('Sending data: $body');
+
     final response = await http.put(
       url,
-      body: {
-        'latitude': newLatitude,
-        'longitude': newLongitude,
-      },
+      headers: headers,
+      body: body,
     );
+
+    print('Response status code: ${response.statusCode}');
+    print('Response body: ${response.body}');
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -673,11 +684,29 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
     }
   }
 
-  Future<void> updateUserDetails(String newC1, String newC2, String newC3, String newC4, String newC5, String newC6, String newC7, String newC8, String newC9) async {
-    final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyDetails'); // Replace with your API URL
+
+  Future<void> updateUserDetails(String newC1, String newC2, String newC3, String newC4, String newC5,
+      String newC6, String newC7, String newC8, String newC9) async {
+    final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyDetails');
+
+    print('Sending data: ${jsonEncode({
+      'assessment_Number': newC1,
+      'ccN_RCN_GutNo': newC2,
+      'ward_No': newC3,
+      'house_No': newC4,
+      'owner_Name': newC5,
+      'mobile_Number': newC6,
+      'telephone_Number': newC7,
+      'area_Name': newC8,
+      'plot_Area': newC9,
+      'Result': '',
+
+    })}');
+
     final response = await http.put(
       url,
-      body: {
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
         'assessment_Number': newC1,
         'ccN_RCN_GutNo': newC2,
         'ward_No': newC3,
@@ -687,8 +716,11 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
         'telephone_Number': newC7,
         'area_Name': newC8,
         'plot_Area': newC9,
-      },
+        'Result': '',
+      }),
     );
+    print('Response status code: ${response.statusCode}');
+    print('Response body: ${response.body}');
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -700,6 +732,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
       );
     }
   }
+
 
 }
 
