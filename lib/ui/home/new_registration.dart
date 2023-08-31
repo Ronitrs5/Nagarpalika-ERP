@@ -1,11 +1,18 @@
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:house_cleaning/ui/home/maps.dart';
 import 'package:house_cleaning/ui/home/property_details.dart';
 import 'package:house_cleaning/ui helper/pop_up_dialogue.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
+var mainLatitude;
+var mainLongitude;
+
 class NewRegistrationPage extends StatefulWidget {
   const NewRegistrationPage({Key? key}) : super(key: key);
+
 
   @override
   State<NewRegistrationPage> createState() => _NewRegistrationPageState();
@@ -13,11 +20,12 @@ class NewRegistrationPage extends StatefulWidget {
 
 class _NewRegistrationPageState extends State<NewRegistrationPage> {
 
+  Position? currentUserPosition;
   String address='';
-  TextEditingController _latitudeController = TextEditingController();
-  TextEditingController _longitudeController = TextEditingController();
+  final TextEditingController _latitudeController = TextEditingController();
+  final TextEditingController _longitudeController = TextEditingController();
 
-  TextEditingController _addressController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
@@ -29,7 +37,6 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
     }
 
     permission = await Geolocator.checkPermission();
-
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
@@ -41,6 +48,12 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
     return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+  }
+
+  Future<void> getPosForMap() async {
+    // ... Existing code ...
+
+    currentUserPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
   }
 
   Future<void> GetAddress(Position position) async{
@@ -250,7 +263,6 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                     primary: Colors.blueAccent,
                   ),
                   onPressed: () async{
-
                     Position position= await _determinePosition();
                     GetAddress(position);
                     setState(() {
@@ -258,13 +270,13 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                       _longitudeController.text = position.longitude.toString();
                     });
                   },
-                  child: Text('Get house location'),
+                  child: const Text('Get house location'),
                 ),
               ],
             ),
 
             Container(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -273,7 +285,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                     child: TextFormField(
                       controller: _latitudeController,
                       enabled: false,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey, width: 1.0),
                         ),
@@ -286,7 +298,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                     child: TextFormField(
                       enabled: false,
                         controller: _longitudeController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey, width: 1.0),
                         ),
@@ -312,12 +324,83 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
               ),
             ),
 
+            //
+            // ElevatedButton(
+            //   onPressed: () async {
+            //     final selectedLatLng = await Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => MyMap()),
+            //     );
+            //
+            //     if (selectedLatLng != null) {
+            //       setState(() {
+            //         // Update lat and lon in the registration page's state
+            //         _latitudeController.text = selectedLatLng.latitude.toString();
+            //         _longitudeController.text = selectedLatLng.longitude.toString();
+            //       });
+            //     }
+            //   },
+            //   child: const Text('Open Maps Activity'),
+            // ),
+
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+              child: Center(
+                child: Text(
+                  "OR",
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ),
+
+
+            Center(
+              child: InkWell(
+                onTap: () async {
+                  final selectedLatLng = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyMap()),
+                  );
+
+                  if (selectedLatLng != null) {
+                    setState(() {
+                      // Update lat and lon in the registration page's state
+                      _latitudeController.text = selectedLatLng.latitude.toString();
+                      _longitudeController.text = selectedLatLng.longitude.toString();
+                    });
+                  }
+                },
+                child: Image.asset(
+                  'assets/icon_maps.png', // Replace with your image asset path
+                  width: 50, // Set the width of the image
+                  height: 50, // Set the height of the image
+                  fit: BoxFit.cover, // Fit the image within the button bounds
+                ),
+              ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+              child: Center(
+                child: Text(
+                  "Select using Maps",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+
+
             const Divider(height: 10 ,
               color: Colors.black38,
               thickness: 1,
               indent: 10,
               endIndent: 10,
             ),
+
 
             Container(
               padding: const EdgeInsets.all(20),
@@ -358,8 +441,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                 ],
               ),
             ),
-
-
+            
           ],
         ),
       ),
@@ -375,6 +457,15 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
         );
       },
     );
+  }
+
+  void _updateSelectedLocation(LatLng latLng) {
+    setState(() {
+      _latitudeController.text = latLng.latitude.toString();
+      _longitudeController.text = latLng.longitude.toString();
+    });
+
+    // Reverse geocode to get the address for the selected location if needed.
   }
 }
 

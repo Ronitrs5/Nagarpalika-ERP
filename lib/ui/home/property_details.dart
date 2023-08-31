@@ -12,12 +12,18 @@ class PropertyDetails extends StatefulWidget {
 }
 
 class _PropertyDetailsState extends State<PropertyDetails> {
-  int selectedRadio = 0; // Track the selected radio button
+  int selectedRadio = 0;
+  // int groupRoad=0;
+  // int groupSandPani=0;
+  // int groupPani=0;
+  // int groupDrainage=0;
+
   setSelectedRadio(int val) {
     setState(() {
       selectedRadio = val;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +34,6 @@ class _PropertyDetailsState extends State<PropertyDetails> {
             icon: const Icon(Icons.info_outline_rounded),
             iconSize: 24,// Add your desired icon here
             onPressed: () {
-              // Add your icon button logic here
-              // Navigator.push(context, MaterialPageRoute(builder: (context)=>const DescriptionPage()));
               _showCloudyMessagePopup(context);
             },
           ),
@@ -41,7 +45,6 @@ class _PropertyDetailsState extends State<PropertyDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-
             Container(
               padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
               child: DropdownButtonFormField<int>(
@@ -61,7 +64,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
             ),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.numbers),
@@ -92,8 +95,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                             showModalBottomSheet(
                               context: context,
                               builder: (BuildContext context) {
-                                return Container(
-                                  height: 1000,
+                                return SizedBox(
+                                  height: 5000,
                                   child: Column(
                                     children: [
                                       const ListTile(
@@ -134,8 +137,6 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                         ),
                                         child: const Text('In detail'),
                                       ),
-
-                                      // ... Add more list items or widgets as needed
                                     ],
                                   ),
                                 );
@@ -201,7 +202,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
             ),
 
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: DropdownButtonFormField<String>(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.add_road),
@@ -210,11 +211,11 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   ),
                   labelText: 'इमरत समोर रस्ता: ',
                 ),
-                items: [
-                  const DropdownMenuItem(value: 'Option 1', child: Text('6 मीटर पर्यंत')),
-                  const DropdownMenuItem(value: 'Option 2', child: Text('6 ते 12 मीटर पर्यंत')),
-                  const DropdownMenuItem(value: 'Option 3', child: Text('12 ते 30 मीटर पर्यंत')),
-                  const DropdownMenuItem(value: 'Option 4', child: Text('30 मीटर पेक्षा अधिक')),
+                items: const [
+                  DropdownMenuItem(value: 'Option 1', child: Text('6 मीटर पर्यंत')),
+                  DropdownMenuItem(value: 'Option 2', child: Text('6 ते 12 मीटर पर्यंत')),
+                  DropdownMenuItem(value: 'Option 3', child: Text('12 ते 30 मीटर पर्यंत')),
+                  DropdownMenuItem(value: 'Option 4', child: Text('30 मीटर पेक्षा अधिक')),
                 ],
                 onChanged: (value) {
                   // Handle dropdown value change
@@ -255,7 +256,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
 
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -285,7 +286,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
 
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -313,9 +314,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               ),
             ),
 
-
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.person),
@@ -328,7 +328,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
             ),
 
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.bathtub),

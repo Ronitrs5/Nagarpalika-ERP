@@ -44,6 +44,18 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
     );
   }
 
+  void trashInstruction(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return PopUpDialogue(
+          title: 'सूचना',
+          message: "1. कचरा घेताना सर्व महिती बरोबर आहे का नाही चेक करा\n\n2. कचर्याचे प्रकार खलील तिन्ही पैकी बरोबर निवड करा",
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,40 +77,30 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                  child: Text(
-                    "1. स्कॅन",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            Builder(
-                builder: (context)=>Container(
-                  alignment: Alignment.center,
-                  child: Flex(
-                    direction: Axis.vertical,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-
-                      ElevatedButton(onPressed: (){
-                        qrScanner();
-                      },
-                          child: const Text("स्कॅन करा"))
-                    ],
-                  ),
-            )
-            ),
-
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                      child:
+                      Image.asset('assets/icon_qr.png',width: 100, color: Colors.blueGrey, ),
+                    onTap: qrScanner,
+                  ),
+
+                ],
+              ),
+            ),
+
+            Text("Press to scan",
+              style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+              ),),
+
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Divider(height: 25, color: Colors.black38),
             ),
 
@@ -108,7 +110,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Text(
-                    "2. घराची महिती",
+                    "घराची महिती",
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -121,7 +123,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: TextFormField(
                 enabled: false,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
@@ -134,7 +136,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: TextFormField(
                 enabled: false,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
@@ -143,23 +145,33 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Divider(height: 25, color: Colors.black38),
             ),
 
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Text(
-                    "3. आजच्या कचर्याचे प्रकार",
+                    "आजच्या कचर्याचे प्रकार",
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
                 ),
+
+                GestureDetector(
+                  onTap:(){
+                    trashInstruction(context);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
+                    child: Icon(Icons.info_outline_rounded),
+                  ),
+                )
               ],
             ),
 
@@ -195,8 +207,8 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
               ],
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Divider(height: 25, color: Colors.black38),
             ),
 
@@ -208,12 +220,12 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle the first button's onPressed action
+
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red, // Set the button color to red
                       ),
-                      child: const Text('Waste no collected'),
+                      child: const Text('Waste not collected'),
                     ),
                   ),
                 ),
@@ -245,7 +257,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
     String d2= d??"";
     final snackBar = SnackBar(
       content: Text("This is what was scanned:\n"+d2),
-      duration: Duration(seconds: 10), // Adjust the duration as needed.
+      duration: const Duration(seconds: 10), // Adjust the duration as needed.
       action: SnackBarAction(
         label: 'Dismiss',
         onPressed: () {
