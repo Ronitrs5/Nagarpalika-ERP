@@ -6,6 +6,9 @@ import 'package:house_cleaning/ui/home/property_details.dart';
 import 'package:house_cleaning/ui helper/pop_up_dialogue.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 var mainLatitude;
 var mainLongitude;
@@ -19,6 +22,9 @@ class NewRegistrationPage extends StatefulWidget {
 }
 
 class _NewRegistrationPageState extends State<NewRegistrationPage> {
+
+  final String assessmentId='';
+  String userDetails = '';
 
   bool _isLoading = false;
 
@@ -36,6 +42,62 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
   TextEditingController c8 = TextEditingController();
   TextEditingController c9 = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch user details using API call and update userDetails
+    _fetchUserDetails();
+  }
+
+  Future<void> _fetchUserDetails() async {
+    final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/Properties');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body) as List<dynamic>;
+
+      if (data.isNotEmpty) {
+        final firstItem = data[0]; // Assuming you want data from the first item
+
+        setState(() {
+          c1.text = firstItem['assessment_Number'];
+          c2.text = firstItem['ccN_RCN_GutNo'];
+          c3.text = firstItem['ward_No'];
+          c4.text = firstItem['house_No'];
+          c5.text = firstItem['owner_Name'];
+          c6.text = firstItem['mobile_Number'];
+          c7.text = firstItem['telephone_Number'];
+          c8.text = firstItem['area_Name'];
+          c9.text = firstItem['plot_Area'];
+          // ... and so on
+        });
+      }
+    } else {
+      // Handle error
+    }
+  }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // Fetch user details using API call and update userDetails
+  //   _fetchUserDetails();
+  // }
+  //
+  // Future<void> _fetchUserDetails() async {
+  //   final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/Properties');
+  //   final response = await http.get(url);
+  //
+  //   if (response.statusCode == 200) {
+  //     // Parse response and update userDetails
+  //     setState(() {
+  //       userDetails = response.body; // You can parse JSON here
+  //     });
+  //   } else {
+  //     // Handle error
+  //   }
+  // }
 
   void clearAllFields() {
     c1.clear();
@@ -128,6 +190,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                 ),
               ),
             ),
+            Text(userDetails),
 
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 5, 35, 0),
@@ -515,7 +578,19 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
 
                   ElevatedButton(
                     onPressed: () {
+                      // final newLatitude = _latitudeController.text;
+                      // final newLongitude = _longitudeController.text;
 
+                      final newC1= c1.text;
+                      final newC2= c2.text;
+                      final newC3= c3.text;
+                      final newC4= c4.text;
+                      final newC5= c5.text;
+                      final newC6= c6.text;
+                      final newC7= c7.text;
+                      final newC8= c8.text;
+                      final newC9= c9.text;
+                      updateUserDetails(newC1, newC2, newC3, newC4, newC5, newC6, newC7, newC8, newC9);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.grey, // Set the button color to green
@@ -577,6 +652,54 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
     );
   }
 
+  Future<void> updateLocation(String newLatitude, String newLongitude) async {
+    final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyLocation'); // Replace with your API URL
+    final response = await http.put(
+      url,
+      body: {
+        'latitude': newLatitude,
+        'longitude': newLongitude,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Location updated successfully')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error updating location')),
+      );
+    }
+  }
+
+  Future<void> updateUserDetails(String newC1, String newC2, String newC3, String newC4, String newC5, String newC6, String newC7, String newC8, String newC9) async {
+    final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyDetails'); // Replace with your API URL
+    final response = await http.put(
+      url,
+      body: {
+        'assessment_Number': newC1,
+        'ccN_RCN_GutNo': newC2,
+        'ward_No': newC3,
+        'house_No': newC4,
+        'owner_Name': newC5,
+        'mobile_Number': newC6,
+        'telephone_Number': newC7,
+        'area_Name': newC8,
+        'plot_Area': newC9,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User details updated successfully')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error updating user details')),
+      );
+    }
+  }
 
 }
 
