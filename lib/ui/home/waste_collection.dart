@@ -153,10 +153,10 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Text(
-                    "आजच्या कचर्याचे प्रकार",
+                    "आजच्या कचऱ्याचे प्रकार",
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -167,7 +167,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                   onTap:(){
                     trashInstruction(context);
                   },
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
                     child: Icon(Icons.info_outline_rounded),
                   ),

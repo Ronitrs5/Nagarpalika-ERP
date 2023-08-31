@@ -53,7 +53,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
-                  labelText: 'इमरत वापर सुरु झाल्येचे अर्थिक वर्ष:',
+                  labelText: 'इमरत वापर सुरु झाल्येचे आर्थिक वर्ष:',
 
                 ),
                 items: generateYearItems(),
@@ -71,7 +71,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
-                  labelText: 'भाडे मुल्य झोन क्रमांक:',
+                  labelText: 'भाडे मुल्य झोन क्रमांक',
                 ),
               ),
             ),
@@ -100,30 +100,30 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                   child: Column(
                                     children: [
                                       const ListTile(
-                                        title: Text('प्राकार अ: पहिल्या प्रतिचे बांधकाम'),
+                                        title: Text('प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
                                       ),
                                       const Divider(),
                                       const ListTile(
-                                        title: Text('प्राकार ब: दुय्यम प्रतिचे बांधकाम'),
+                                        title: Text('प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
                                       ),
                                       const Divider(),
                                       const ListTile(
-                                        title: Text('प्राकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्राकार ड: साधरण प्रतिचे बांधकाम'),
+                                        title: Text('प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
                                       ),
 
                                       const Divider(),
                                       const ListTile(
-                                        title: Text('प्राकार इ: निकृष्ट प्रतिचे बांधकाम'),
+                                        title: Text('प्रकार ड: साधरण प्रतिचे बांधकाम'),
                                       ),
 
                                       const Divider(),
                                       const ListTile(
-                                        title: Text('प्राकार ई: तात्पुरते प्रतिचे बांधकाम'),
+                                        title: Text('प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
+                                      ),
+
+                                      const Divider(),
+                                      const ListTile(
+                                        title: Text('प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
                                       ),
 
                                       const Divider(),
@@ -150,7 +150,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     ],
                   ),
                   RadioListTile(
-                    title: const Text('प्राकार अ'),
+                    title: const Text('प्रकार अ'),
                     value: 1,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -158,7 +158,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('प्राकार ब'),
+                    title: const Text('प्रकार ब'),
                     value: 2,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -166,7 +166,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('प्राकार क'),
+                    title: const Text('प्रकार क'),
                     value: 3,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -174,7 +174,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('प्राकार ड'),
+                    title: const Text('प्रकार ड'),
                     value: 4,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -182,7 +182,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('प्राकार इ'),
+                    title: const Text('प्रकार इ'),
                     value: 5,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -190,7 +190,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('प्राकार ई'),
+                    title: const Text('प्रकार ई'),
                     value: 6,
                     groupValue: selectedRadio,
                     onChanged: (val) {
@@ -209,12 +209,12 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
-                  labelText: 'इमरत समोर रस्ता: ',
+                  labelText: 'इमारत समोर रस्ता: ',
                 ),
                 items: const [
                   DropdownMenuItem(value: 'Option 1', child: Text('6 मीटर पर्यंत')),
-                  DropdownMenuItem(value: 'Option 2', child: Text('6 ते 12 मीटर पर्यंत')),
-                  DropdownMenuItem(value: 'Option 3', child: Text('12 ते 30 मीटर पर्यंत')),
+                  DropdownMenuItem(value: 'Option 2', child: Text('6 ते 12 मीटर')),
+                  DropdownMenuItem(value: 'Option 3', child: Text('12 ते 30 मीटर')),
                   DropdownMenuItem(value: 'Option 4', child: Text('30 मीटर पेक्षा अधिक')),
                 ],
                 onChanged: (value) {
@@ -322,7 +322,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
-                  labelText: 'कनेक्शन धारकाचे नाव:',
+                  labelText: 'कनेक्शन धारकाचे नाव',
                 ),
               ),
             ),
@@ -335,7 +335,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey, width: 1.0),
                   ),
-                  labelText: 'संडास सांख्या:',
+                  labelText: 'संडास संख्या',
                 ),
               ),
             ),

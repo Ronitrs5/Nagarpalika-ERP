@@ -20,21 +20,47 @@ class NewRegistrationPage extends StatefulWidget {
 
 class _NewRegistrationPageState extends State<NewRegistrationPage> {
 
+  bool _isLoading = false;
+
   Position? currentUserPosition;
   String address='';
   final TextEditingController _latitudeController = TextEditingController();
   final TextEditingController _longitudeController = TextEditingController();
-
+  TextEditingController c1 = TextEditingController();
+  TextEditingController c2 = TextEditingController();
+  TextEditingController c3 = TextEditingController();
+  TextEditingController c4 = TextEditingController();
+  TextEditingController c5 = TextEditingController();
+  TextEditingController c6 = TextEditingController();
+  TextEditingController c7 = TextEditingController();
+  TextEditingController c8 = TextEditingController();
+  TextEditingController c9 = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+
+  void clearAllFields() {
+    c1.clear();
+    c2.clear();
+    c3.clear();
+    c4.clear();
+    c5.clear();
+    c6.clear();
+    c7.clear();
+    c8.clear();
+    c9.clear();
+    _latitudeController.clear();
+    _longitudeController.clear();
+    _addressController.clear();
+  }
+
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      await Geolocator.openLocationSettings();
-      return Future.error('Location services are disabled.');
-    }
+    // if (!serviceEnabled) {
+    //   await Geolocator.openLocationSettings();
+    //   return Future.error('Location services are disabled.');
+    // }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -87,7 +113,9 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
       ),
 
       body: SingleChildScrollView(
+
         child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
@@ -104,6 +132,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 5, 35, 0),
               child: TextFormField(
+                controller: c1,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.confirmation_number_outlined),
                   border: OutlineInputBorder(
@@ -134,6 +163,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 5, 35, 0),
               child: TextFormField(
+                controller: c2,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.grid_on_outlined),
                   border: OutlineInputBorder(
@@ -147,6 +177,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
               child: TextFormField(
+                controller: c3,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.streetview),
                   border: OutlineInputBorder(
@@ -160,6 +191,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
               child: TextFormField(
+                controller: c4,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.house),
                   border: OutlineInputBorder(
@@ -173,6 +205,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
               child: TextFormField(
+                controller: c5,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.person),
                   border: OutlineInputBorder(
@@ -186,6 +219,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
               child: TextFormField(
+                controller: c6,
                 keyboardType: TextInputType.phone, // Set keyboard type to phone number
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.phone_android),
@@ -201,6 +235,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
               child: TextFormField(
+                controller: c7,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.phone),
@@ -215,6 +250,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
               child: TextFormField(
+                controller: c8,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.surround_sound),
                   border: OutlineInputBorder(
@@ -228,6 +264,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
               child: TextFormField(
+                controller: c9,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.place),
                   border: OutlineInputBorder(
@@ -245,35 +282,143 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
               endIndent: 10,
             ),
 
-            const Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 35, 0),
-              child: Text(
-                "स्थान कॅप्चर:",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blueAccent,
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Text(
+                    "लोकेशन",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
-                  onPressed: () async{
-                    Position position= await _determinePosition();
-                    GetAddress(position);
-                    setState(() {
-                      _latitudeController.text = position.latitude.toString();
-                      _longitudeController.text = position.longitude.toString();
-                    });
-                  },
-                  child: const Text('Get house location'),
                 ),
+
+                GestureDetector(
+                  onTap:(){
+                    locationInfo(context);
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
+                    child: Icon(Icons.info_outline_rounded),
+                  ),
+                )
               ],
             ),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+
+                  Column(children: [
+                    Center(
+                      child: InkWell(
+                        onTap: () async {
+                                  setState(() {
+                                  _isLoading=true;
+                                  });
+
+                                  Position position= await _determinePosition();
+                                  GetAddress(position);
+                                  setState(() {
+                                    _latitudeController.text = position.latitude.toString();
+                                    _longitudeController.text = position.longitude.toString();
+                                    _isLoading=false;
+
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Location fetched!')));
+
+                                  });
+                                },
+                        child: _isLoading? CircularProgressIndicator(color: Colors.blueAccent,) : Image.asset(
+                          'assets/icon_moblocation.png', // Replace with your image asset path
+                          width: 50, // Set the width of the image
+                          height: 50, // Set the height of the image
+                          fit: BoxFit.cover, // Fit the image within the button bounds
+                        ),
+                      ),
+                    ),
+
+                    if(_isLoading)
+                      const Text(
+                        "Getting location..",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    if(_isLoading == false)
+                    const Text(
+                      "Device's\nLocation",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                  ),
+
+                  Text("OR"),
+                  Column(children: [
+                    Center(
+                      child: InkWell(
+                        onTap: () async {
+                          final selectedLatLng = await Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MyMap()),
+                          );
+
+                          if (selectedLatLng != null) {
+                            setState(() {
+                              // Update lat and lon in the registration page's state
+                              _latitudeController.text = selectedLatLng.latitude.toString();
+                              _longitudeController.text = selectedLatLng.longitude.toString();
+                            });
+                          }
+                        },
+                        child: Image.asset(
+                          'assets/icon_maps.png', // Replace with your image asset path
+                          width: 50, // Set the width of the image
+                          height: 50, // Set the height of the image
+                          fit: BoxFit.cover, // Fit the image within the button bounds
+                        ),
+                      ),
+                    ),
+
+                    const Center(
+                      child: Text(
+                        "Map\n(Recommended)",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],),
+                ],),
+            ),
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     // ElevatedButton(
+            //     //   style: ElevatedButton.styleFrom(
+            //     //     primary: Colors.blueAccent,
+            //     //   ),
+            //     //   onPressed: () async{
+            //     //     Position position= await _determinePosition();
+            //     //     GetAddress(position);
+            //     //     setState(() {
+            //     //       _latitudeController.text = position.latitude.toString();
+            //     //       _longitudeController.text = position.longitude.toString();
+            //     //     });
+            //     //   },
+            //     //   child: const Text('Get house location'),
+            //     // ),
+            //   ],
+            // ),
 
             Container(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
@@ -343,56 +488,6 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
             //   child: const Text('Open Maps Activity'),
             // ),
 
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-              child: Center(
-                child: Text(
-                  "OR",
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-            ),
-
-
-            Center(
-              child: InkWell(
-                onTap: () async {
-                  final selectedLatLng = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyMap()),
-                  );
-
-                  if (selectedLatLng != null) {
-                    setState(() {
-                      // Update lat and lon in the registration page's state
-                      _latitudeController.text = selectedLatLng.latitude.toString();
-                      _longitudeController.text = selectedLatLng.longitude.toString();
-                    });
-                  }
-                },
-                child: Image.asset(
-                  'assets/icon_maps.png', // Replace with your image asset path
-                  width: 50, // Set the width of the image
-                  height: 50, // Set the height of the image
-                  fit: BoxFit.cover, // Fit the image within the button bounds
-                ),
-              ),
-            ),
-
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-              child: Center(
-                child: Text(
-                  "Select using Maps",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ),
-
 
             const Divider(height: 10 ,
               color: Colors.black38,
@@ -410,27 +505,26 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // Handle the first button's onPressed action
+                      clearAllFields();
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.red, // Set the button color to red
                     ),
-                    child: const Text('रद'),
+                    child: const Text('रद्द'),
                   ),
 
                   ElevatedButton(
                     onPressed: () {
-                      // Handle the second button's onPressed action
+
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.grey, // Set the button color to green
                     ),
-                    child: const Text('सेव'),
+                    child:  Text("सेव"),
                   ),
 
                   ElevatedButton(
                     onPressed: () {
-                      // Handle the second button's onPressed action
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>const PropertyDetails()));
                     },
                     style: ElevatedButton.styleFrom(
@@ -438,6 +532,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                     ),
                     child: const Text('पुढे'),
                   ),
+
                 ],
               ),
             ),
@@ -467,5 +562,21 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
 
     // Reverse geocode to get the address for the selected location if needed.
   }
+
+  void locationInfo(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return PopUpDialogue(
+          title: 'Disclaimer',
+          message: "You can select location using 2 methods:\nA. Your device's current location.\nB. Using a marker on Google Maps.\n\n"
+              "Note: If your are getting inaccurate location using method A, then please use method B.\n\n"
+              "Wrong locations won't be tolerated!",
+        );
+      },
+    );
+  }
+
+
 }
 

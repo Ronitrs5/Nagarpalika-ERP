@@ -8,6 +8,26 @@ class DescriptionPage extends StatefulWidget {
 }
 
 class _DescriptionPageState extends State<DescriptionPage> {
+  TextEditingController firstController = TextEditingController();
+  TextEditingController secondController = TextEditingController();
+  TextEditingController resultController = TextEditingController();
+
+  @override
+  void dispose() {
+    firstController.dispose();
+    secondController.dispose();
+    resultController.dispose();
+    super.dispose();
+  }
+
+  void updateResult() {
+    double firstValue = double.tryParse(firstController.text) ?? 0.0;
+    double secondValue = double.tryParse(secondController.text) ?? 0.0;
+    double multiplicationResult = firstValue * secondValue;
+
+    resultController.text = multiplicationResult.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -22,7 +42,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                const Padding(
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: Text(
-                  "मालकाचे अगर वहिवाटदाराचे वापरातील जगेचे वर्णन",
+                  "मालकाचे अगर वहिवाटदाराचे वापरातील जागेचे वर्णन",
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -83,7 +103,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     border: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey, width: 1.0),
                     ),
-                    labelText: 'वापराचा प्राकार',
+                    labelText: 'वापराचा प्रकार',
                   ),
                 ),
               ),
@@ -95,7 +115,11 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 8, 16),
                       child: TextFormField(
+                        controller: firstController,
                         keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          updateResult();
+                        },
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -115,7 +139,11 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
                       child: TextFormField(
+                        controller: secondController,
                         keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          updateResult();
+                        },
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -136,12 +164,13 @@ class _DescriptionPageState extends State<DescriptionPage> {
                       padding: const EdgeInsets.fromLTRB(8, 0, 16, 16),
                       child: Center(
                         child: TextFormField(
+                          controller: resultController,
                           enabled: false,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey, width: 1.0),
                             ),
-                            labelText: 'एकुण क्षेत्र',
+                            labelText: 'एकूण क्षेत्र',
                           ),
                         ),
                       ),
@@ -150,10 +179,12 @@ class _DescriptionPageState extends State<DescriptionPage> {
                 ],
               ),
 
+
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: Center(
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey, width: 1.0),
