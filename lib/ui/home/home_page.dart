@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                                 valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                               ),
                             )
-                                : const Text('Login'),
+                                : const Text('Login',style: TextStyle(color: Colors.white),),
                           ),
                         ),
 
