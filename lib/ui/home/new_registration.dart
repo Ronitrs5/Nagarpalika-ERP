@@ -27,13 +27,17 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
 
   final String assessmentId='';
   String userDetails = '';
-
+  bool isButtonEnabled = false;
   bool _isLoading = false;
+  @override
+
+
+
 
   Position? currentUserPosition;
   String address='';
-  final TextEditingController _latitudeController = TextEditingController();
-  final TextEditingController _longitudeController = TextEditingController();
+  TextEditingController _latitudeController = TextEditingController();
+  TextEditingController _longitudeController = TextEditingController();
   TextEditingController c1 = TextEditingController();
   TextEditingController c2 = TextEditingController();
   TextEditingController c3 = TextEditingController();
@@ -49,7 +53,27 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
   void initState() {
     super.initState();
     // Fetch user details using API call and update userDetails
+    _latitudeController.addListener(() {
+      _updateButtonState();
+    });
+
+    _longitudeController.addListener(() {
+      _updateButtonState();
+    });
     _fetchUserDetails();
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      isButtonEnabled = _latitudeController.text.isNotEmpty && _longitudeController.text.isNotEmpty;
+    });
+  }
+
+  @override
+  void dispose() {
+    _latitudeController.dispose();
+    _longitudeController.dispose();
+    super.dispose();
   }
 
   Future<void> _fetchUserDetails() async {
@@ -72,13 +96,16 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
           c7.text = (firstItem['telephone_Number'] as String).trim();
           c8.text = (firstItem['area_Name'] as String).trim();
           c9.text = (firstItem['plot_Area'] as String).trim();
-          // ... and so on
+            // _latitudeController.text = (firstItem['latitude'] as String?) ?? '';
+            // _longitudeController.text = (firstItem['longitude'] as String?) ?? '';
+
         });
       }
     } else {
       // Handle error
     }
   }
+
 
   // @override
   // void initState() {
@@ -196,7 +223,21 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                   ),
                   Text(userDetails),
 
-                  EditText(controller: c1,text: "नोंदणी क्रमांक",icon: Icons.app_registration,),
+                  EditText(controller: c1,text: "नोंदणी क्रमांक",icon: Icons.app_registration,selected: false, ),
+                  //
+                  // Padding(
+                  //   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  //   child: TextFormField(
+                  //     enabled: false,
+                  //     controller: c1,
+                  //     decoration: const InputDecoration(
+                  //       border: OutlineInputBorder(
+                  //         borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  //       ),
+                  //       labelText: "नोंदणी क्रमांक",
+                  //     ),
+                  //   ),
+                  // ),
 
                   const Divider(height: 25,
                   color: Colors.black12,
@@ -216,16 +257,16 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16,),
+                  const SizedBox(height: 16,),
 
-                  EditText(controller: c2, text: 'सि.सि.नं./ रि.सि.नं./ गट नं.', icon: Icons.grid_on_outlined),
-                  EditText(controller: c3, text: 'वार्ड नं.', icon: Icons.streetview),
-                  EditText(controller: c4, text: 'घर नं.', icon: Icons.house),
-                  EditText(controller: c5, text: 'मालमता धारकाचे नाव.', icon: Icons.person),
-                  EditText(controller: c6, text: 'मोबाईल नं.', icon: Icons.phone_android),
-                  EditText(controller: c7, text: 'टेलिफोन नं.', icon: Icons.phone),
-                  EditText(controller: c8, text: 'परिसराचे नाव', icon: Icons.surround_sound),
-                  EditText(controller: c9, text: 'जागा क्षेत्र', icon: Icons.place),
+                  EditText(controller: c2, text: 'सि.सि.नं./ रि.सि.नं./ गट नं.', icon: Icons.grid_on_outlined, selected: false),
+                  EditText(controller: c3, text: 'वार्ड नं.', icon: Icons.streetview, selected: false),
+                  EditText(controller: c4, text: 'घर नं.', icon: Icons.house, selected: false),
+                  EditText(controller: c5, text: 'मालमता धारकाचे नाव.', icon: Icons.person, selected: false),
+                  EditText(controller: c6, text: 'मोबाईल नं.', icon: Icons.phone_android, selected: true),
+                  EditText(controller: c7, text: 'टेलिफोन नं.', icon: Icons.phone, selected: true),
+                  EditText(controller: c8, text: 'परिसराचे नाव', icon: Icons.place, selected: false),
+                  EditText(controller: c9, text: 'जागा क्षेत्र', icon: Icons.area_chart, selected: false),
 
                   const Divider(height: 25,
                     color: Colors.black26,
@@ -266,65 +307,66 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
 
-                        Column(children: [
-                          Center(
-                            child: InkWell(
-                              onTap: () async {
-                                        setState(() {
-                                        _isLoading=true;
-                                        });
+                        // Column(children: [
+                        //   Center(
+                        //     child: InkWell(
+                        //       onTap: () async {
+                        //                 setState(() {
+                        //                 _isLoading=true;
+                        //                 });
+                        //
+                        //                 Position position= await _determinePosition();
+                        //                 GetAddress(position);
+                        //                 setState(() {
+                        //                   _latitudeController.text = position.latitude.toString();
+                        //                   _longitudeController.text = position.longitude.toString();
+                        //                   _isLoading=false;
+                        //
+                        //                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Location fetched!')));
+                        //
+                        //                 });
+                        //               },
+                        //       child: _isLoading? const CircularProgressIndicator(color: Colors.blueAccent,) : Container(
+                        //         decoration: BoxDecoration(
+                        //           color: Colors.black12,
+                        //           borderRadius: BorderRadius.circular(70)
+                        //         ),
+                        //         padding: const EdgeInsets.all(16),
+                        //
+                        //         child: Image.asset(
+                        //           'assets/icon_moblocation.png', // Replace with your image asset path
+                        //           width: 35, // Set the width of the image
+                        //           height: 35, // Set the height of the image
+                        //           fit: BoxFit.cover, // Fit the image within the button bounds
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        //
+                        //   if(_isLoading)
+                        //     const Text(
+                        //       "Getting location..",
+                        //       style: TextStyle(
+                        //         fontSize: 16,
+                        //       ),
+                        //       textAlign: TextAlign.center,
+                        //     ),
+                        //   if(_isLoading == false)
+                        //   const Padding(
+                        //     padding: EdgeInsets.only(top: 8.0),
+                        //     child: Text(
+                        //       "Device's\nLocation",
+                        //       style: TextStyle(
+                        //         fontSize: 14,
+                        //       ),
+                        //       textAlign: TextAlign.center,
+                        //     ),
+                        //   ),
+                        // ],
+                        // ),
 
-                                        Position position= await _determinePosition();
-                                        GetAddress(position);
-                                        setState(() {
-                                          _latitudeController.text = position.latitude.toString();
-                                          _longitudeController.text = position.longitude.toString();
-                                          _isLoading=false;
+                        // const Text("OR",style: TextStyle(fontWeight: FontWeight.bold),),
 
-                                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Location fetched!')));
-
-                                        });
-                                      },
-                              child: _isLoading? CircularProgressIndicator(color: Colors.blueAccent,) : Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black12,
-                                  borderRadius: BorderRadius.circular(70)
-                                ),
-                                padding: EdgeInsets.all(16),
-                                
-                                child: Image.asset(
-                                  'assets/icon_moblocation.png', // Replace with your image asset path
-                                  width: 35, // Set the width of the image
-                                  height: 35, // Set the height of the image
-                                  fit: BoxFit.cover, // Fit the image within the button bounds
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          if(_isLoading)
-                            const Text(
-                              "Getting location..",
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          if(_isLoading == false)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: const Text(
-                              "Device's\nLocation",
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                        ),
-
-                        Text("OR",style: TextStyle(fontWeight: FontWeight.bold),),
                         Column(children: [
                           Center(
                             child: InkWell(
@@ -347,7 +389,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                                     color: Colors.black12,
                                     borderRadius: BorderRadius.circular(70)
                                 ),
-                                padding: EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
                                 child: Image.asset(
                                   'assets/icon_maps.png', // Replace with your image asset path
                                   width: 35, // Set the width of the image
@@ -362,7 +404,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                             child: Padding(
                               padding: EdgeInsets.only(top: 8.0),
                               child: Text(
-                                "Map\n(Recommended)",
+                                "Select Location\nUsing Map",
                                 style: TextStyle(
                                   fontSize: 14,
                                 ),
@@ -373,26 +415,6 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                         ],),
                       ],),
                   ),
-
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     // ElevatedButton(
-                  //     //   style: ElevatedButton.styleFrom(
-                  //     //     primary: Colors.blueAccent,
-                  //     //   ),
-                  //     //   onPressed: () async{
-                  //     //     Position position= await _determinePosition();
-                  //     //     GetAddress(position);
-                  //     //     setState(() {
-                  //     //       _latitudeController.text = position.latitude.toString();
-                  //     //       _longitudeController.text = position.longitude.toString();
-                  //     //     });
-                  //     //   },
-                  //     //   child: const Text('Get house location'),
-                  //     // ),
-                  //   ],
-                  // ),
 
                   Container(
                     padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
@@ -411,7 +433,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 8,),
+                        const SizedBox(width: 8,),
                         Expanded(
                           child: TextFormField(
                             enabled: false,
@@ -473,32 +495,31 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        clearAllFields();
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.red,
-                          padding: EdgeInsets.all(14), // Set the button color to red
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.cancel,size: 18,),
-                          SizedBox(width: 4,),
-                          const Text('रद्द',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8,),
+                  // Expanded(
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
+                  //       clearAllFields();
+                  //     },
+                  //     style: ElevatedButton.styleFrom(
+                  //         primary: Colors.red,
+                  //         padding: const EdgeInsets.all(14), // Set the button color to red
+                  //     ),
+                  //     child: const Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         Icon(Icons.cancel,size: 18,),
+                  //         SizedBox(width: 4,),
+                  //         Text('रद्द',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  const SizedBox(width: 8,),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
                         final newLatitude = _latitudeController.text;
                         final newLongitude = _longitudeController.text;
-
                         final newC1= c1.text.trim();
                         final newC2= c2.text.trim();
                         final newC3= c3.text.trim();
@@ -509,14 +530,14 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                         final newC8= c8.text.trim();
                         final newC9= c9.text.trim();
 
-                        updateUserDetails(newC1, newC2, newC3, newC4, newC5, newC6, newC7, newC8, newC9);
-                        // updateLocation(newLatitude, newLongitude);
+                        // updateUserDetails(newC1, newC2, newC3, newC4, newC5, newC6, newC7, newC8, newC9);
+                        updateLocation(newC1, newLatitude, newLongitude);
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.grey, // Set the button color to green
-                          padding: EdgeInsets.all(14)// Set the button color to red
+                          primary: Colors.blueAccent, // Set the button color to green
+                          padding: const EdgeInsets.all(14)// Set the button color to red
                       ),
-                      child:  Row(
+                      child:  const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.save,size: 18,),
@@ -526,25 +547,52 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8,),
+                  const SizedBox(width: 8,),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const PropertyDetails()));
-                      },
+                    // child: ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.push(context, MaterialPageRoute(builder: (context)=>const PropertyDetails()));
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //       primary: Colors.green, // Set the button color to green
+                    //       padding: const EdgeInsets.all(14)// Set the button color to red
+                    //   ),
+                    //   child: const Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Icon(Icons.arrow_forward,size: 18,),
+                    //       SizedBox(width: 4,),
+                    //       Text('पुढे'),
+                    //     ],
+                    //   ),
+                    // ),
+                    child:
+                    ElevatedButton(
+                      onPressed: isButtonEnabled
+                          ? () {
+                        // Navigate to the next page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PropertyDetails(),
+                          ),
+                        );
+                      }
+                          : null,
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.green, // Set the button color to green
-                          padding: EdgeInsets.all(14)// Set the button color to red
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_forward,size: 18,),
-                          SizedBox(width: 4,),
-                          const Text('पुढे'),
-                        ],
-                      ),
+                              primary: Colors.green, // Set the button color to green
+                              padding: const EdgeInsets.all(14)// Set the button color to red
+                          ), // Disable the button if inputs are empty
+                      child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.arrow_forward,size: 18,),
+                              SizedBox(width: 4,),
+                              Text('पुढे'),
+                            ],
+                          ),
                     ),
+
                   ),
 
                 ],
@@ -583,22 +631,24 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
       builder: (BuildContext context) {
         return PopUpDialogue(
           title: 'Disclaimer',
-          message: "You can select location using 2 methods:\nA. Your device's current location.\nB. Using a marker on Google Maps.\n\n"
-              "Note: If your are getting inaccurate location using method A, then please use method B.\n\n"
-              "Wrong locations won't be tolerated!",
+          message: "1. Give the required permissions and turn on LOCATION.\n\n"
+              "2. Navigate the RED marker to the exact location of your house.\n\n"
+              "3. You can see the SATELLITE view by pressing the green button on the top right of maps.\n\n"
+              "4. Press on 'Select this location' for getting the coordinates.",
+
         );
       },
     );
   }
 
-  Future<void> updateLocation(String newLatitude, String newLongitude) async {
+  Future<void> updateLocation(String newC1, String newLatitude, String newLongitude) async {
     final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyLocation');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
+      'Assessment_Number': newC1,
       'latitude': newLatitude,
       'longitude': newLongitude,
     });
-
     print('Sending data: $body');
 
     final response = await http.put(
@@ -627,7 +677,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
     final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyDetails');
 
     print('Sending data: ${jsonEncode({
-      'assessment_Number': newC1,
+      'Assessment_Number': newC1,
       'ccN_RCN_GutNo': newC2,
       'ward_No': newC3,
       'house_No': newC4,
@@ -643,15 +693,15 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'assessment_Number': newC1,
+        'Assessment_Number': newC1,
         'ccN_RCN_GutNo': newC2,
-        'ward_No': newC3,
-        'house_No': newC4,
-        'owner_Name': newC5,
-        'mobile_Number': newC6,
-        'telephone_Number': newC7,
-        'area_Name': newC8,
-        'plot_Area': newC9,
+        'Ward_No': newC3,
+        'House_No': newC4,
+        'Owner_Name': newC5,
+        'Mobile_Number': newC6,
+        'Telephone_Number': newC7,
+        'Area_Name': newC8,
+        'Plot_Area': newC9,
         'Result': '',
       }),
     );
@@ -669,5 +719,3 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
     }
   }
 }
-
-

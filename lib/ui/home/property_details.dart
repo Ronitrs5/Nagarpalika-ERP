@@ -57,7 +57,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
             ),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
               child: TextFormField(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.numbers),
@@ -69,8 +69,16 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               ),
             ),
 
+            const Divider(height: 25,
+              color: Colors.black26,
+              thickness: 1,
+              indent: 10,
+              endIndent: 10,
+            ),
+
+
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -141,72 +149,104 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
                     ],
                   ),
-                  RadioListTile(
-                    title: const Text('प्रकार अ'),
-                    value: 1,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                    },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार ब'),
-                    value: 2,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
+                  // RadioListTile(
+                  //   title: const Text('प्रकार अ'),
+                  //   value: 1,
+                  //   groupValue: buildingRadio,
+                  //   onChanged: (val) {
+                  //     setState(() {
+                  //       buildingRadio=val!;
+                  //     });
+                  //   },
+                  // ),
+                  // RadioListTile(
+                  //   title: const Text('प्रकार ब'),
+                  //   value: 2,
+                  //   groupValue: buildingRadio,
+                  //   onChanged: (val) {
+                  //     setState(() {
+                  //       buildingRadio=val!;
+                  //     });
+                  //     },
+                  // ),
+                  // RadioListTile(
+                  //   title: const Text('प्रकार क'),
+                  //   value: 3,
+                  //   groupValue: buildingRadio,
+                  //   onChanged: (val) {
+                  //     setState(() {
+                  //       buildingRadio=val!;
+                  //     });
+                  //     },
+                  // ),
+                  // RadioListTile(
+                  //   title: const Text('प्रकार ड'),
+                  //   value: 4,
+                  //   groupValue: buildingRadio,
+                  //   onChanged: (val) {
+                  //     setState(() {
+                  //       buildingRadio=val!;
+                  //     });
+                  //     },
+                  // ),
+                  // RadioListTile(
+                  //   title: const Text('प्रकार इ'),
+                  //   value: 5,
+                  //   groupValue: buildingRadio,
+                  //   onChanged: (val) {
+                  //     setState(() {
+                  //       buildingRadio=val!;
+                  //     });
+                  //     },
+                  // ),
+                  // RadioListTile(
+                  //   title: const Text('प्रकार ई'),
+                  //   value: 6,
+                  //   groupValue: buildingRadio,
+                  //   onChanged: (val) {
+                  //     setState(() {
+                  //       buildingRadio=val!;
+                  //     });
+                  //     },
+                  // ),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.apartment),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                        labelText: 'इमारतीचे प्रत', // Dropdown field label
+                      ),
+                      items: [
+                        DropdownMenuItem(value: 'प्रकार अ', child: Text('प्रकार अ')),
+                        DropdownMenuItem(value: 'प्रकार ब', child: Text('प्रकार ब')),
+                        DropdownMenuItem(value: 'प्रकार क', child: Text('प्रकार क')),
+                        DropdownMenuItem(value: 'प्रकार ड', child: Text('प्रकार ड')),
+                        DropdownMenuItem(value: 'प्रकार इ', child: Text('प्रकार इ')),
+                        DropdownMenuItem(value: 'प्रकार ई', child: Text('प्रकार ई')),
+                      ],
+                      onChanged: (value) {
+                        // Handle dropdown value change
                       },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार क'),
-                    value: 3,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार ड'),
-                    value: 4,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार इ'),
-                    value: 5,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार ई'),
-                    value: 6,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
+                    ),
                   ),
                 ],
               ),
             ),
 
+            const Divider(
+              color: Colors.black26,
+              thickness: 1,
+              indent: 10,
+              endIndent: 10,
+            ),
+
+
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: DropdownButtonFormField<String>(
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.add_road),
@@ -237,26 +277,40 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     'रस्ता:', // Radio group title
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  RadioListTile(
-                    title: const Text('कच्चा'),
-                    value: 1,
-                    groupValue: roadRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        roadRadio=val!;
-                      });
-                      },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start, // Align the radio buttons to the start and end
+                    children: [
+                      Row(
+                        children: [
+                          Radio(
+                            value: 1,
+                            groupValue: roadRadio,
+                            onChanged: (val) {
+                              setState(() {
+                                roadRadio = val!;
+                              });
+                            },
+                          ),
+                          const Text('कच्चा'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 2,
+                            groupValue: roadRadio,
+                            onChanged: (val) {
+                              setState(() {
+                                roadRadio = val!;
+                              });
+                            },
+                          ),
+                          const Text('पक्का'),
+                        ],
+                      ),
+                    ],
                   ),
-                  RadioListTile(
-                    title: const Text('पक्का'),
-                    value: 2,
-                    groupValue: roadRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        roadRadio=val!;
-                      });
-                    },
-                  ),
+
                 ],
               ),
             ),
@@ -272,26 +326,40 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     'सांडपाण्याची व्‍यवस्‍था:', // Radio group title
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  RadioListTile(
-                    title: const Text('आहे'),
-                    value: 1,
-                    groupValue: sandpani,
-                    onChanged: (val) {
-                      setState(() {
-                        sandpani=val!;
-                      });
-                      },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start, // Align the radio buttons to the start and end
+                    children: [
+                      Row(
+                        children: [
+                          Radio(
+                            value: 1,
+                            groupValue: sandpani,
+                            onChanged: (val) {
+                              setState(() {
+                                sandpani = val!;
+                              });
+                            },
+                          ),
+                          const Text('आहे'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 2,
+                            groupValue: sandpani,
+                            onChanged: (val) {
+                              setState(() {
+                                sandpani = val!;
+                              });
+                            },
+                          ),
+                          const Text('नाही'),
+                        ],
+                      ),
+                    ],
                   ),
-                  RadioListTile(
-                    title: const Text('नाही'),
-                    value: 2,
-                    groupValue: sandpani,
-                    onChanged: (val) {
-                      setState(() {
-                        sandpani=val!;
-                      });
-                      },
-                  ),
+
                 ],
               ),
             ),
@@ -306,26 +374,40 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     'पाणी कनेक्शन:', // Radio group title
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  RadioListTile(
-                    title: const Text('आहे'),
-                    value: 1,
-                    groupValue: waterconnection,
-                    onChanged: (val) {
-                      setState(() {
-                        waterconnection=val!;
-                      });
-                      },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start, // Align the radio buttons to the start and end
+                    children: [
+                      Row(
+                        children: [
+                          Radio(
+                            value: 1,
+                            groupValue: waterconnection,
+                            onChanged: (val) {
+                              setState(() {
+                                waterconnection = val!;
+                              });
+                            },
+                          ),
+                          const Text('आहे'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 2,
+                            groupValue: waterconnection,
+                            onChanged: (val) {
+                              setState(() {
+                                waterconnection = val!;
+                              });
+                            },
+                          ),
+                          const Text('नाही'),
+                        ],
+                      ),
+                    ],
                   ),
-                  RadioListTile(
-                    title: const Text('नाही'),
-                    value: 2,
-                    groupValue: waterconnection,
-                    onChanged: (val) {
-                      setState(() {
-                        waterconnection=val!;
-                      });
-                      },
-                  ),
+
                 ],
               ),
             ),
@@ -366,47 +448,61 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     'ड्रेनेज:', // Radio group title
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  RadioListTile(
-                    title: const Text('आहे'),
-                    value: 1,
-                    groupValue: drainage,
-                    onChanged: (val) {
-                      setState(() {
-                        drainage=val!;
-                      });
-                      },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start, // Align the radio buttons to the start and end
+                    children: [
+                      Row(
+                        children: [
+                          Radio(
+                            value: 1,
+                            groupValue: drainage,
+                            onChanged: (val) {
+                              setState(() {
+                                drainage = val!;
+                              });
+                            },
+                          ),
+                          const Text('आहे'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 2,
+                            groupValue: drainage,
+                            onChanged: (val) {
+                              setState(() {
+                                drainage = val!;
+                              });
+                            },
+                          ),
+                          const Text('नाही'),
+                        ],
+                      ),
+                    ],
                   ),
-                  RadioListTile(
-                    title: const Text('नाही'),
-                    value: 2,
-                    groupValue: drainage,
-                    onChanged: (val) {
-                      setState(() {
-                        drainage=val!;
-                      });
-                    },
-                  ),
+
                 ],
               ),
             ),
 
             Row(
               children: [
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Handle the first button's onPressed action
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Set the button color to red
-                      ),
-                      child: const Text('रद'),
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   flex: 1,
+                //   child: Padding(
+                //     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                //     child: ElevatedButton(
+                //       onPressed: () {
+                //         // Handle the first button's onPressed action
+                //       },
+                //       style: ElevatedButton.styleFrom(
+                //         primary: Colors.red, // Set the button color to red
+                //       ),
+                //       child: const Text('रद'),
+                //     ),
+                //   ),
+                // ),
 
                 Expanded(
                   flex: 1,
@@ -418,9 +514,16 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                         // Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.grey, // Set the button color to green
+                        primary: Colors.blueAccent, // Set the button color to green
                       ),
-                      child: const Text('सेव'),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.save,size: 18,),
+                          SizedBox(width: 4,),
+                          const Text('सेव'),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -437,7 +540,14 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green, // Set the button color to green
                       ),
-                      child: const Text('पुढे'),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.arrow_forward,size: 18,),
+                          SizedBox(width: 4,),
+                          Text('पुढे'),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -480,7 +590,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
   List<DropdownMenuItem<int>> generateYearItems() {
     List<DropdownMenuItem<int>> items = [];
-    for (int year = 1900; year <= currentYear; year++) {
+    for (int year = 1980; year <= currentYear; year++) {
       items.add(DropdownMenuItem(value: year, child: Text(year.toString())));
     }
     return items;

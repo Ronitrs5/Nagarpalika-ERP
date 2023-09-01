@@ -174,71 +174,71 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
 
-                         Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                          child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-
-                              const Text(
-                                "Don't have an user ID? ",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return SingleChildScrollView(
-                                        child: Container(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: const Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Center(
-                                                child: Text(
-                                                  "Registration Message",
-                                                  style: TextStyle(
-                                                    fontSize: 25,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(height: 10),
-
-                                              Divider(color: Colors.black12,),
-                                              SizedBox(height: 10),
-                                              Text(
-                                                "Registration of user with USER ID and PASSWORD is done on our website.\n\n"
-                                                    "To register visit our website given below:",
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              SizedBox(height: 10),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-
-                                },
-                                child: const Text(
-                                  "Register here",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.blueAccent, // Customize the color for "Register here"
-                                  ),
-                                ),
-                              )
-
-
-                            ],
-                          ),
-                        )
+                        //  Padding(
+                        //   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        //   child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //
+                        //       const Text(
+                        //         "Don't have an user ID? ",
+                        //         style: TextStyle(
+                        //           fontSize: 15,
+                        //         ),
+                        //       ),
+                        //
+                        //       GestureDetector(
+                        //         onTap: () {
+                        //           showModalBottomSheet(
+                        //             context: context,
+                        //             builder: (BuildContext context) {
+                        //               return SingleChildScrollView(
+                        //                 child: Container(
+                        //                   padding: const EdgeInsets.all(16.0),
+                        //                   child: const Column(
+                        //                     crossAxisAlignment: CrossAxisAlignment.start,
+                        //                     children: [
+                        //                       Center(
+                        //                         child: Text(
+                        //                           "Registration Message",
+                        //                           style: TextStyle(
+                        //                             fontSize: 25,
+                        //                             fontWeight: FontWeight.bold,
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                       SizedBox(height: 10),
+                        //
+                        //                       Divider(color: Colors.black12,),
+                        //                       SizedBox(height: 10),
+                        //                       Text(
+                        //                         "Registration of user with USER ID and PASSWORD is done on our website.\n\n"
+                        //                             "To register visit our website given below:",
+                        //                         style: TextStyle(
+                        //                           fontSize: 16,
+                        //                         ),
+                        //                       ),
+                        //                       SizedBox(height: 10),
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //             },
+                        //           );
+                        //
+                        //         },
+                        //         child: const Text(
+                        //           "Register here",
+                        //           style: TextStyle(
+                        //             fontSize: 15,
+                        //             color: Colors.blueAccent, // Customize the color for "Register here"
+                        //           ),
+                        //         ),
+                        //       )
+                        //
+                        //
+                        //     ],
+                        //   ),
+                        // )
                       ],
                     ),
                   ],

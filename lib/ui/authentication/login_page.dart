@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:house_cleaning/ui/home/dashboard_page.dart';
 import 'package:house_cleaning/ui/home/description.dart';
 import 'package:house_cleaning/ui/home/navigation_drawer.dart';
 import 'package:house_cleaning/ui/home/new_registration.dart';
@@ -21,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: const Text("Home"),
         backgroundColor: Colors.blueAccent,
       ),
       drawer: Drawer(
@@ -65,69 +66,83 @@ class _LoginPageState extends State<LoginPage> {
             // Add other menu items here
 
             ListTile(
-              leading: Icon(Icons.search),
-              title: Text('Search assessment number'),
+              leading: const Icon(Icons.search),
+              title: const Text('Search assessment number'),
               onTap: () {
                 // Implement the action when Home is tapped
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SearchAssessment()),
+                  MaterialPageRoute(builder: (context) => const SearchAssessment()),
                 );
               },
             ),
 
-            Divider(),
+            const Divider(),
 
             ListTile(
-              leading: Icon(Icons.person_add_rounded),
-              title: Text('New Registration'),
+              leading: const Icon(Icons.person_add_rounded),
+              title: const Text('New Registration'),
               onTap: () {
                 // Implement the action when Home is tapped
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NewRegistrationPage()),
+                  MaterialPageRoute(builder: (context) => const NewRegistrationPage()),
                 );
               },
             ),
 
-            Divider(),
+            const Divider(),
 
             ListTile(
-              leading: Icon(Icons.info_outline_rounded),
-              title: Text('Property Details'),
+              leading: const Icon(Icons.info_outline_rounded),
+              title: const Text('Property Details'),
               onTap: () {
                 // Implement the action when New Registration is tapped
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PropertyDetails()),
+                  MaterialPageRoute(builder: (context) => const PropertyDetails()),
                 );
               },
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.description),
-              title: Text('Description'),
+              leading: const Icon(Icons.description),
+              title: const Text('Description'),
               onTap: () {
                 // Implement the action when Information is tapped
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DescriptionPage()),
+                  MaterialPageRoute(builder: (context) => const DescriptionPage()),
                   // MaterialPageRoute(builder: (context)=>DescPage())
                 );
               },
             ),
-              Divider(),
+              const Divider(),
               ListTile(
-                leading: Icon(Icons.delete),
-                title: Text('Waste Collection'),
+                leading: const Icon(Icons.delete),
+                title: const Text('Waste Collection'),
                 onTap: () {
                   // Implement the action when Information is tapped
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => WasteCollectionPage()),
+                    MaterialPageRoute(builder: (context) => const WasteCollectionPage()),
                     // MaterialPageRoute(builder: (context)=>DescPage())
                   );
                 },
+            ),
+
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.dashboard),
+              title: const Text('Dashboard'),
+              onTap: () {
+                // Implement the action when Information is tapped
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DashboardPage()),
+                  // MaterialPageRoute(builder: (context)=>DescPage())
+                );
+              },
             ),
           ],
         ),
