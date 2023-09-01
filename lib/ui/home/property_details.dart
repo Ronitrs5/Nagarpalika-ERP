@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:house_cleaning/ui/home/description.dart';
+import 'package:house_cleaning/widgets/button_card.dart';
+import 'package:house_cleaning/widgets/edittext.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:house_cleaning/ui helper/pop_up_dialogue.dart';
@@ -18,6 +20,10 @@ class _PropertyDetailsState extends State<PropertyDetails> {
   var waterconnection=0;
   var drainage=0;
 
+  var _selectedDate=DateTime.now();
+  var zoneController=TextEditingController();
+  var connectionController=TextEditingController();
+  var numberController=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,417 +40,371 @@ class _PropertyDetailsState extends State<PropertyDetails> {
         title: const Text("Details of your property"),
         backgroundColor: Colors.blueAccent,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
-              child: DropdownButtonFormField<int>(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.calendar_month),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'इमरत वापर सुरु झाल्येचे आर्थिक वर्ष:',
-
-                ),
-                items: generateYearItems(),
-                onChanged: (value) {
-                  // Handle the selected year value
-                },
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.numbers),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'भाडे मुल्य झोन क्रमांक',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(16),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'इमारतीचे प्रत:', // Radio group title
-                        style: TextStyle(fontSize: 18.0),
-                      ),
+                  GestureDetector(onTap: (){
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Select Year"),
+                          content: Container( // Need to use container to add size constraint.
+                            width: 300,
+                            height: 300,
+                            child: YearPicker(
+                              firstDate: DateTime(DateTime.now().year - 200, 1),
+                              lastDate: DateTime(DateTime.now().year, 1),
+                              initialDate: DateTime.now(),
+                              // save the selected date to _selectedDate DateTime variable.
+                              // It's used to set the previous selected date when
+                              // re-showing the dialog.
+                              selectedDate: _selectedDate,
+                              onChanged: (DateTime dateTime) {
+                                // close the dialog when year is selected.
+                                Navigator.pop(context);
 
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      const ListTile(
-                                        title: Text('प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
-                                      ),
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
-                                      ),
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार ड: साधरण प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          _showImageDialog(context);
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.green, // Set the button color to red
-                                        ),
-                                        child: const Text('In detail'),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                                // Do something with the dateTime selected.
+                                // Remember that you need to use dateTime.year to get the year
                               },
-                            );
-                          },
-                          child: const Icon(Icons.info_outline_rounded),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },child: Container(
+                    height: 60,
+                    margin: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      border: Border.all(color:Colors.black45),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 12,),
+                        Icon(Icons.calendar_month,color: Colors.grey,),
+                        SizedBox(width: 8,),
+                        Text('इमरत वापर सुरु झाल्येचे आर्थिक वर्ष:',style: TextStyle(color: Colors.grey),),
+                      ],
+                    ),
+                  )),
+
+                  EditText(controller: zoneController, text: 'भाडे मुल्य झोन क्रमांक', icon: Icons.numbers),
+
+                  Divider(thickness: 1,indent: 16,color: Colors.black12,endIndent: 16,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16,top: 8,right: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'इमारतीचे प्रत:', // Radio group title
+                              style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                            ),
+
+                            Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            const ListTile(
+                                              title: Text('प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
+                                            ),
+                                            const Divider(),
+                                            const ListTile(
+                                              title: Text('प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
+                                            ),
+                                            const Divider(),
+                                            const ListTile(
+                                              title: Text('प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
+                                            ),
+
+                                            const Divider(),
+                                            const ListTile(
+                                              title: Text('प्रकार ड: साधरण प्रतिचे बांधकाम'),
+                                            ),
+
+                                            const Divider(),
+                                            const ListTile(
+                                              title: Text('प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
+                                            ),
+
+                                            const Divider(),
+                                            const ListTile(
+                                              title: Text('प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
+                                            ),
+
+                                            const Divider(),
+
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                _showImageDialog(context);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.green, // Set the button color to red
+                                              ),
+                                              child: const Text('In detail'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Icon(Icons.info_outline_rounded),
+                              ),
+                            ),
+
+                          ],
                         ),
-                      ),
-
-                    ],
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार अ'),
-                    value: 1,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                    },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार ब'),
-                    value: 2,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार क'),
-                    value: 3,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार ड'),
-                    value: 4,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार इ'),
-                    value: 5,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('प्रकार ई'),
-                    value: 6,
-                    groupValue: buildingRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        buildingRadio=val!;
-                      });
-                      },
-                  ),
-                ],
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.add_road),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'इमारत समोर रस्ता: ',
-                ),
-                items: const [
-                  DropdownMenuItem(value: 'Option 1', child: Text('6 मीटर पर्यंत')),
-                  DropdownMenuItem(value: 'Option 2', child: Text('6 ते 12 मीटर')),
-                  DropdownMenuItem(value: 'Option 3', child: Text('12 ते 30 मीटर')),
-                  DropdownMenuItem(value: 'Option 4', child: Text('30 मीटर पेक्षा अधिक')),
-                ],
-                onChanged: (value) {
-                  // Handle dropdown value change
-                },
-              ),
-            ),
-
-
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'रस्ता:', // Radio group title
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  RadioListTile(
-                    title: const Text('कच्चा'),
-                    value: 1,
-                    groupValue: roadRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        roadRadio=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('पक्का'),
-                    value: 2,
-                    groupValue: roadRadio,
-                    onChanged: (val) {
-                      setState(() {
-                        roadRadio=val!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-
-
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'सांडपाण्याची व्‍यवस्‍था:', // Radio group title
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  RadioListTile(
-                    title: const Text('आहे'),
-                    value: 1,
-                    groupValue: sandpani,
-                    onChanged: (val) {
-                      setState(() {
-                        sandpani=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('नाही'),
-                    value: 2,
-                    groupValue: sandpani,
-                    onChanged: (val) {
-                      setState(() {
-                        sandpani=val!;
-                      });
-                      },
-                  ),
-                ],
-              ),
-            ),
-
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'पाणी कनेक्शन:', // Radio group title
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  RadioListTile(
-                    title: const Text('आहे'),
-                    value: 1,
-                    groupValue: waterconnection,
-                    onChanged: (val) {
-                      setState(() {
-                        waterconnection=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('नाही'),
-                    value: 2,
-                    groupValue: waterconnection,
-                    onChanged: (val) {
-                      setState(() {
-                        waterconnection=val!;
-                      });
-                      },
-                  ),
-                ],
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'कनेक्शन धारकाचे नाव',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.bathtub),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'संडास संख्या',
-                ),
-              ),
-            ),
-
-
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'ड्रेनेज:', // Radio group title
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  RadioListTile(
-                    title: const Text('आहे'),
-                    value: 1,
-                    groupValue: drainage,
-                    onChanged: (val) {
-                      setState(() {
-                        drainage=val!;
-                      });
-                      },
-                  ),
-                  RadioListTile(
-                    title: const Text('नाही'),
-                    value: 2,
-                    groupValue: drainage,
-                    onChanged: (val) {
-                      setState(() {
-                        drainage=val!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Handle the first button's onPressed action
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Set the button color to red
-                      ),
-                      child: const Text('रद'),
+                        RadioListTile(
+                          title: const Text('प्रकार अ'),
+                          value: 1,
+                          groupValue: buildingRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              buildingRadio=val!;
+                            });
+                          },
+                        ),
+                        RadioListTile(
+                          title: const Text('प्रकार ब'),
+                          value: 2,
+                          groupValue: buildingRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              buildingRadio=val!;
+                            });
+                            },
+                        ),
+                        RadioListTile(
+                          title: const Text('प्रकार क'),
+                          value: 3,
+                          groupValue: buildingRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              buildingRadio=val!;
+                            });
+                            },
+                        ),
+                        RadioListTile(
+                          title: const Text('प्रकार ड'),
+                          value: 4,
+                          groupValue: buildingRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              buildingRadio=val!;
+                            });
+                            },
+                        ),
+                        RadioListTile(
+                          title: const Text('प्रकार इ'),
+                          value: 5,
+                          groupValue: buildingRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              buildingRadio=val!;
+                            });
+                            },
+                        ),
+                        RadioListTile(
+                          title: const Text('प्रकार ई'),
+                          value: 6,
+                          groupValue: buildingRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              buildingRadio=val!;
+                            });
+                            },
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                  Divider(thickness: 1,color: Colors.black12,indent: 16,endIndent: 16,),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.add_road),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                        contentPadding: EdgeInsets.all(16),
+                        labelText: 'इमारत समोर रस्ता: ',
+                      ),icon: Icon(Icons.arrow_drop_down_outlined),
 
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Handle the second button's onPressed action
-                        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.grey, // Set the button color to green
-                      ),
-                      child: const Text('सेव'),
+                      items: [
+                        DropdownMenuItem(value: 'Option 1', child: Text('6 मीटर पर्यंत',)),
+                        DropdownMenuItem(value: 'Option 2', child: Text('6 ते 12 मीटर')),
+                        DropdownMenuItem(value: 'Option 3', child: Text('12 ते 30 मीटर')),
+                        DropdownMenuItem(value: 'Option 4', child: Text('30 मीटर पेक्षा अधिक')),
+                      ],
+                      onChanged: (value) {
+                      }  // Handle dropdown value change
                     ),
                   ),
-                ),
-
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Handle the second button's onPressed action
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green, // Set the button color to green
-                      ),
-                      child: const Text('पुढे'),
+                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text(
+                          'रस्ता:', // Radio group title
+                          style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                        ),
+                        RadioListTile(
+                          title: const Text('कच्चा'),
+                          value: 1,
+                          groupValue: roadRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              roadRadio=val!;
+                            });
+                            },
+                        ),
+                        RadioListTile(
+                          title: const Text('पक्का'),
+                          value: 2,
+                          groupValue: roadRadio,
+                          onChanged: (val) {
+                            setState(() {
+                              roadRadio=val!;
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
+
+                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text(
+                          'सांडपाण्याची व्‍यवस्‍था:', // Radio group title
+                          style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                        ),
+                        RadioListTile(
+                          title: const Text('आहे'),
+                          value: 1,
+                          groupValue: sandpani,
+                          onChanged: (val) {
+                            setState(() {
+                              sandpani=val!;
+                            });
+                            },
+                        ),
+                        RadioListTile(
+                          title: const Text('नाही'),
+                          value: 2,
+                          groupValue: sandpani,
+                          onChanged: (val) {
+                            setState(() {
+                              sandpani=val!;
+                            });
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text(
+                          'पाणी कनेक्शन:', // Radio group title
+                          style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                        ),
+                        RadioListTile(
+                          title: const Text('आहे'),
+                          value: 1,
+                          groupValue: waterconnection,
+                          onChanged: (val) {
+                            setState(() {
+                              waterconnection=val!;
+                            });
+                            },
+                        ),
+                        RadioListTile(
+                          title: const Text('नाही'),
+                          value: 2,
+                          groupValue: waterconnection,
+                          onChanged: (val) {
+                            setState(() {
+                              waterconnection=val!;
+                            });
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+
+                  EditText(controller: connectionController, text: 'कनेक्शन धारकाचे नाव', icon: Icons.person),
+                  EditText(controller: numberController, text: 'संडास संख्या', icon: Icons.bathtub),
+
+                  Divider(indent: 16,endIndent: 16,),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text(
+                          'ड्रेनेज:', // Radio group title
+                          style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                        ),
+                        RadioListTile(
+                          title: const Text('आहे'),
+                          value: 1,
+                          groupValue: drainage,
+                          onChanged: (val) {
+                            setState(() {
+                              drainage=val!;
+                            });
+                            },
+                        ),
+                        RadioListTile(
+                          title: const Text('नाही'),
+                          value: 2,
+                          groupValue: drainage,
+                          onChanged: (val) {
+                            setState(() {
+                              drainage=val!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+          ButtonsNav(onPressCancel: (){
+
+          }, onPressSave: (){}, onPressNext: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
+          }),
+        ],
       ),
     );
 

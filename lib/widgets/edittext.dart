@@ -13,6 +13,7 @@ class EditText extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
       child: TextFormField(
         controller: controller,
+        style: TextStyle(fontSize: 14),
         decoration: InputDecoration(
           prefixIcon: Icon(icon),
           border: OutlineInputBorder(
