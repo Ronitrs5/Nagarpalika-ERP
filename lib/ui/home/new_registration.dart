@@ -271,7 +271,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                   const Divider(height: 25,
                     color: Colors.black26,
                     thickness: 1,
-                    indent: 16,
+                    indent: 10,
                     endIndent: 10,
                   ),
 
