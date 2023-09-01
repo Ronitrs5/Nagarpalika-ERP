@@ -15,6 +15,7 @@ class EditText extends StatelessWidget {
       child: TextFormField(
         enabled: selected? true: false,
         controller: controller,
+        style: TextStyle(fontSize: 14),
         decoration: InputDecoration(
           prefixIcon: Icon(icon),
           border: OutlineInputBorder(

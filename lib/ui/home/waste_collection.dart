@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:house_cleaning/ui helper/pop_up_dialogue.dart';
 import 'package:http/http.dart' as http;
+
+import '../../widgets/edittext.dart';
 
 
 class WasteCollectionPage extends StatefulWidget {
@@ -13,7 +17,10 @@ class WasteCollectionPage extends StatefulWidget {
 }
 
 class _WasteCollectionPageState extends State<WasteCollectionPage> {
- 
+
+  var assesmentNumber=TextEditingController();
+  var ownerName=TextEditingController();
+
   int selectedRadioButton = 0;
   setSelectedRadio(int val) {
     setState(() {
@@ -113,38 +120,16 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                   child: Text(
                     "घराची महिती",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
                 ),
               ],
             ),
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: TextFormField(
-                enabled: false,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'असेसमेंट नंबर',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: TextFormField(
-                enabled: false,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'मालकाचे नाव',
-                ),
-              ),
-            ),
+            EditText(controller: assesmentNumber, text: 'असेसमेंट नंबर', icon: Icons.numbers,),
+            EditText(controller: assesmentNumber, text: 'मालकाचे नाव', icon: Icons.person,),
 
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -159,7 +144,8 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                   child: Text(
                     "आजच्या कचऱ्याचे प्रकार",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -180,7 +166,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
               children: [
                 RadioListTile(
 
-                  title: const Text('ओला वेगळा, सुका वेगळा'),
+                  title: const Text('ओला वेगळा, सुका वेगळा',style: TextStyle(fontSize: 14),),
                   value: 1,
                   groupValue: selectedRadioButton,
                   onChanged: (val) {
@@ -188,7 +174,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                   },
                 ),
                 RadioListTile(
-                  title: const Text('ओला सुका मिक्स'),
+                  title: const Text('ओला सुका मिक्स',style: TextStyle(fontSize: 14),),
                   value: 2,
                   groupValue: selectedRadioButton,
                   onChanged: (val) {
@@ -197,7 +183,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                 ),
 
                 RadioListTile(
-                  title: const Text('इलेक्ट्रिक'),
+                  title: const Text('इलेक्ट्रिक',style: TextStyle(fontSize: 14),),
                   value: 3,
                   groupValue: selectedRadioButton,
                   onChanged: (val) {
@@ -218,15 +204,22 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                 Expanded(
                   flex: 1,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    padding: const EdgeInsets.fromLTRB(16, 0, 8, 16),
                     child: ElevatedButton(
                       onPressed: () {
 
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Set the button color to red
+                        primary: Colors.red, 
+                        padding: EdgeInsets.all(8)// Set the button color to red
                       ),
-                      child: const Text('Waste not collected'),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.no_accounts,size: 20,),
+                          Text('Waste not collected',style: TextStyle(fontSize: 12,),textAlign: TextAlign.center,),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -234,25 +227,45 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                 Expanded(
                   flex: 1,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    padding: const EdgeInsets.fromLTRB(8, 0, 16, 16),
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green, // Set the button color to green
                       ),
-                      child: const Text('Waste collected'),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.check),
+                          SizedBox(width: 8,),
+                          Text('Waste collected',style: TextStyle(fontSize: 12,),textAlign: TextAlign.center,),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-
           ],
         ),
       ),
     );
   }
 
+  Future<int> collect() async{
+    var url=Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/WasteCollection/AddWasteCollection');
+    final headers = {'Content-Type': 'application/json'};
+    //todo body needs to be updated
+    var body=jsonEncode({
+      '':'',
+    });
+    
+    await http.post(url,headers: headers,body: body).then((value){
+      return value.statusCode;
+    });
+
+    return 404;
+  }
   void _showSnackbar(BuildContext context, String? data) {
     String? d= data;
     String d2= d??"";
@@ -266,7 +279,6 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
         },
       ),
     );
-
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
