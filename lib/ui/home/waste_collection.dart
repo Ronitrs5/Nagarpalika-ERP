@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:house_cleaning/ui helper/pop_up_dialogue.dart';
+import 'package:http/http.dart' as http;
 
 
 class WasteCollectionPage extends StatefulWidget {
@@ -12,8 +13,8 @@ class WasteCollectionPage extends StatefulWidget {
 }
 
 class _WasteCollectionPageState extends State<WasteCollectionPage> {
-
-  int selectedRadioButton = 0; // Track the selected radio button
+ 
+  int selectedRadioButton = 0;
   setSelectedRadio(int val) {
     setState(() {
       selectedRadioButton = val;
