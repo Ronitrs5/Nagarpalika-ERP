@@ -9,6 +9,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../widgets/edittext.dart';
+
 
 var mainLatitude;
 var mainLongitude;
@@ -61,15 +63,15 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
         final firstItem = data[0]; // Assuming you want data from the first item
 
         setState(() {
-          c1.text = firstItem['assessment_Number'];
-          c2.text = firstItem['ccN_RCN_GutNo'];
-          c3.text = firstItem['ward_No'];
-          c4.text = firstItem['house_No'];
-          c5.text = firstItem['owner_Name'];
-          c6.text = firstItem['mobile_Number'];
-          c7.text = firstItem['telephone_Number'];
-          c8.text = firstItem['area_Name'];
-          c9.text = firstItem['plot_Area'];
+          c1.text = (firstItem['assessment_Number'] as String).trim();
+          c2.text = (firstItem['ccN_RCN_GutNo'] as String).trim();
+          c3.text = (firstItem['ward_No'] as String).trim();
+          c4.text = (firstItem['house_No'] as String).trim();
+          c5.text = (firstItem['owner_Name'] as String).trim();
+          c6.text = (firstItem['mobile_Number'] as String).trim();
+          c7.text = (firstItem['telephone_Number'] as String).trim();
+          c8.text = (firstItem['area_Name'] as String).trim();
+          c9.text = (firstItem['plot_Area'] as String).trim();
           // ... and so on
         });
       }
@@ -174,448 +176,383 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
         backgroundColor: Colors.blueAccent,
       ),
 
-      body: SingleChildScrollView(
-
-        child: Column(
-
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            const Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-              child: Text(
-                "Reg. No. ",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Text(userDetails),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 5, 35, 0),
-              child: TextFormField(
-                controller: c1,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.confirmation_number_outlined),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'नोंदणी क्रमांक',
-                ),
-              ),
-            ),
-
-            const Divider(height: 25,
-            color: Colors.black38,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
-
-            const Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 35, 0),
-              child: Text(
-                "सर्व अवश्यक",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 5, 35, 0),
-              child: TextFormField(
-                controller: c2,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.grid_on_outlined),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'सि.सि.नं./ रि.सि.नं./ गट नं.',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
-              child: TextFormField(
-                controller: c3,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.streetview),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'वार्ड नं.',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
-              child: TextFormField(
-                controller: c4,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.house),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'घर नं.',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
-              child: TextFormField(
-                controller: c5,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'मालमता धारकाचे नाव.',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
-              child: TextFormField(
-                controller: c6,
-                keyboardType: TextInputType.phone, // Set keyboard type to phone number
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.phone_android),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'मोबाईल नं.',
-                ),
-              ),
-            ),
-
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
-              child: TextFormField(
-                controller: c7,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.phone),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'टेलिफोन नं.',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
-              child: TextFormField(
-                controller: c8,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.surround_sound),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'परिसराचे नाव',
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(35, 16, 35, 0),
-              child: TextFormField(
-                controller: c9,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.place),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'जागा क्षेत्र',
-                ),
-              ),
-            ),
-
-            const Divider(height: 25,
-              color: Colors.black38,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Text(
-                    "लोकेशन",
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-
-                GestureDetector(
-                  onTap:(){
-                    locationInfo(context);
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
-                    child: Icon(Icons.info_outline_rounded),
-                  ),
-                )
-              ],
-            ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
-                  Column(children: [
-                    Center(
-                      child: InkWell(
-                        onTap: () async {
-                                  setState(() {
-                                  _isLoading=true;
-                                  });
-
-                                  Position position= await _determinePosition();
-                                  GetAddress(position);
-                                  setState(() {
-                                    _latitudeController.text = position.latitude.toString();
-                                    _longitudeController.text = position.longitude.toString();
-                                    _isLoading=false;
-
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Location fetched!')));
-
-                                  });
-                                },
-                        child: _isLoading? CircularProgressIndicator(color: Colors.blueAccent,) : Image.asset(
-                          'assets/icon_moblocation.png', // Replace with your image asset path
-                          width: 50, // Set the width of the image
-                          height: 50, // Set the height of the image
-                          fit: BoxFit.cover, // Fit the image within the button bounds
-                        ),
-                      ),
-                    ),
-
-                    if(_isLoading)
-                      const Text(
-                        "Getting location..",
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    if(_isLoading == false)
-                    const Text(
-                      "Device's\nLocation",
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 8, 0),
+                    child: Text(
+                      "Reg. No. ",
                       style: TextStyle(
                         fontSize: 16,
+                        fontWeight: FontWeight.bold
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ],
+                  ),
+                  Text(userDetails),
+
+                  EditText(controller: c1,text: "नोंदणी क्रमांक",icon: Icons.app_registration,),
+
+                  const Divider(height: 25,
+                  color: Colors.black12,
+                    thickness: 1,
+                    indent: 16,
+                    endIndent: 10,
                   ),
 
-                  Text("OR"),
-                  Column(children: [
-                    Center(
-                      child: InkWell(
-                        onTap: () async {
-                          final selectedLatLng = await Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MyMap()),
-                          );
 
-                          if (selectedLatLng != null) {
-                            setState(() {
-                              // Update lat and lon in the registration page's state
-                              _latitudeController.text = selectedLatLng.latitude.toString();
-                              _longitudeController.text = selectedLatLng.longitude.toString();
-                            });
-                          }
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 35, 0),
+                    child: Text(
+                      "सर्व अवश्यक",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16,),
+
+                  EditText(controller: c2, text: 'सि.सि.नं./ रि.सि.नं./ गट नं.', icon: Icons.grid_on_outlined),
+                  EditText(controller: c3, text: 'वार्ड नं.', icon: Icons.streetview),
+                  EditText(controller: c4, text: 'घर नं.', icon: Icons.house),
+                  EditText(controller: c5, text: 'मालमता धारकाचे नाव.', icon: Icons.person),
+                  EditText(controller: c6, text: 'मोबाईल नं.', icon: Icons.phone_android),
+                  EditText(controller: c7, text: 'टेलिफोन नं.', icon: Icons.phone),
+                  EditText(controller: c8, text: 'परिसराचे नाव', icon: Icons.surround_sound),
+                  EditText(controller: c9, text: 'जागा क्षेत्र', icon: Icons.place),
+
+                  const Divider(height: 25,
+                    color: Colors.black26,
+                    thickness: 1,
+                    indent: 16,
+                    endIndent: 10,
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Text(
+                          "लोकेशन",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      ),
+
+                      GestureDetector(
+                        onTap:(){
+                          locationInfo(context);
                         },
-                        child: Image.asset(
-                          'assets/icon_maps.png', // Replace with your image asset path
-                          width: 50, // Set the width of the image
-                          height: 50, // Set the height of the image
-                          fit: BoxFit.cover, // Fit the image within the button bounds
+                        child: const Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
+                          child: Icon(Icons.info_outline_rounded,size: 20,weight: 1200,),
                         ),
-                      ),
-                    ),
+                      )
+                    ],
+                  ),
 
-                    const Center(
-                      child: Text(
-                        "Map\n(Recommended)",
-                        style: TextStyle(
-                          fontSize: 16,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+
+                        Column(children: [
+                          Center(
+                            child: InkWell(
+                              onTap: () async {
+                                        setState(() {
+                                        _isLoading=true;
+                                        });
+
+                                        Position position= await _determinePosition();
+                                        GetAddress(position);
+                                        setState(() {
+                                          _latitudeController.text = position.latitude.toString();
+                                          _longitudeController.text = position.longitude.toString();
+                                          _isLoading=false;
+
+                                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Location fetched!')));
+
+                                        });
+                                      },
+                              child: _isLoading? CircularProgressIndicator(color: Colors.blueAccent,) : Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(70)
+                                ),
+                                padding: EdgeInsets.all(16),
+                                
+                                child: Image.asset(
+                                  'assets/icon_moblocation.png', // Replace with your image asset path
+                                  width: 35, // Set the width of the image
+                                  height: 35, // Set the height of the image
+                                  fit: BoxFit.cover, // Fit the image within the button bounds
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          if(_isLoading)
+                            const Text(
+                              "Getting location..",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          if(_isLoading == false)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: const Text(
+                              "Device's\nLocation",
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],),
-                ],),
-            ),
 
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     // ElevatedButton(
-            //     //   style: ElevatedButton.styleFrom(
-            //     //     primary: Colors.blueAccent,
-            //     //   ),
-            //     //   onPressed: () async{
-            //     //     Position position= await _determinePosition();
-            //     //     GetAddress(position);
-            //     //     setState(() {
-            //     //       _latitudeController.text = position.latitude.toString();
-            //     //       _longitudeController.text = position.longitude.toString();
-            //     //     });
-            //     //   },
-            //     //   child: const Text('Get house location'),
-            //     // ),
-            //   ],
-            // ),
+                        Text("OR",style: TextStyle(fontWeight: FontWeight.bold),),
+                        Column(children: [
+                          Center(
+                            child: InkWell(
+                              onTap: () async {
+                                final selectedLatLng = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MyMap()),
+                                );
 
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2 - 35,
-                    child: TextFormField(
-                      controller: _latitudeController,
-                      enabled: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                                if (selectedLatLng != null) {
+                                  setState(() {
+                                    // Update lat and lon in the registration page's state
+                                    _latitudeController.text = selectedLatLng.latitude.toString();
+                                    _longitudeController.text = selectedLatLng.longitude.toString();
+                                  });
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.black12,
+                                    borderRadius: BorderRadius.circular(70)
+                                ),
+                                padding: EdgeInsets.all(16),
+                                child: Image.asset(
+                                  'assets/icon_maps.png', // Replace with your image asset path
+                                  width: 35, // Set the width of the image
+                                  height: 35, // Set the height of the image
+                                  fit: BoxFit.cover, // Fit the image within the button bounds
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          const Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                "Map\n(Recommended)",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],),
+                      ],),
+                  ),
+
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     // ElevatedButton(
+                  //     //   style: ElevatedButton.styleFrom(
+                  //     //     primary: Colors.blueAccent,
+                  //     //   ),
+                  //     //   onPressed: () async{
+                  //     //     Position position= await _determinePosition();
+                  //     //     GetAddress(position);
+                  //     //     setState(() {
+                  //     //       _latitudeController.text = position.latitude.toString();
+                  //     //       _longitudeController.text = position.longitude.toString();
+                  //     //     });
+                  //     //   },
+                  //     //   child: const Text('Get house location'),
+                  //     // ),
+                  //   ],
+                  // ),
+
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: _latitudeController,
+                            enabled: false,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                              ),
+                              labelText: 'Latitude',
+                            ),
+                          ),
                         ),
-                        labelText: 'Latitude',
-                      ),
+                        SizedBox(width: 8,),
+                        Expanded(
+                          child: TextFormField(
+                            enabled: false,
+                              controller: _longitudeController,
+                              decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                              ),
+                              labelText: 'Longitude',
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2 - 35,
-                    child: TextFormField(
-                      enabled: false,
-                        controller: _longitudeController,
-                        decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                        ),
-                        labelText: 'Longitude',
-                      ),
-                    ),
-                  ),
+
+                  // Padding(
+                  //   padding: const EdgeInsets.fromLTRB(30, 1, 30, 20),
+                  //   child: TextFormField(
+                  //     controller: _addressController,
+                  //     enabled: false,
+                  //     decoration: const InputDecoration(
+                  //       border: OutlineInputBorder(
+                  //         borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  //       ),
+                  //       labelText: 'Address',
+                  //     ),
+                  //   ),
+                  // ),
+
+                  //
+                  // ElevatedButton(
+                  //   onPressed: () async {
+                  //     final selectedLatLng = await Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(builder: (context) => MyMap()),
+                  //     );
+                  //
+                  //     if (selectedLatLng != null) {
+                  //       setState(() {
+                  //         // Update lat and lon in the registration page's state
+                  //         _latitudeController.text = selectedLatLng.latitude.toString();
+                  //         _longitudeController.text = selectedLatLng.longitude.toString();
+                  //       });
+                  //     }
+                  //   },
+                  //   child: const Text('Open Maps Activity'),
+                  // ),
+                  
                 ],
               ),
             ),
-
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 1, 30, 20),
-              child: TextFormField(
-                controller: _addressController,
-                enabled: false,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                  ),
-                  labelText: 'Address',
-                ),
-              ),
-            ),
-
-            //
-            // ElevatedButton(
-            //   onPressed: () async {
-            //     final selectedLatLng = await Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => MyMap()),
-            //     );
-            //
-            //     if (selectedLatLng != null) {
-            //       setState(() {
-            //         // Update lat and lon in the registration page's state
-            //         _latitudeController.text = selectedLatLng.latitude.toString();
-            //         _longitudeController.text = selectedLatLng.longitude.toString();
-            //       });
-            //     }
-            //   },
-            //   child: const Text('Open Maps Activity'),
-            // ),
-
-
-            const Divider(height: 10 ,
-              color: Colors.black38,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
-
-
-            Container(
+          ),
+          Card(
+            elevation: 20,
+            margin: EdgeInsets.zero,
+            child: Container(
               padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      clearAllFields();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red, // Set the button color to red
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        clearAllFields();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                          padding: EdgeInsets.all(14), // Set the button color to red
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.cancel,size: 18,),
+                          SizedBox(width: 4,),
+                          const Text('रद्द',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                        ],
+                      ),
                     ),
-                    child: const Text('रद्द'),
                   ),
+                  SizedBox(width: 8,),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final newLatitude = _latitudeController.text;
+                        final newLongitude = _longitudeController.text;
 
-                  ElevatedButton(
-                    onPressed: () {
-                      final newLatitude = _latitudeController.text;
-                      final newLongitude = _longitudeController.text;
+                        final newC1= c1.text.trim();
+                        final newC2= c2.text.trim();
+                        final newC3= c3.text.trim();
+                        final newC4= c4.text.trim();
+                        final newC5= c5.text.trim();
+                        final newC6= c6.text.trim();
+                        final newC7= c7.text.trim();
+                        final newC8= c8.text.trim();
+                        final newC9= c9.text.trim();
 
-                      final newC1= c1.text.trim();
-                      final newC2= c2.text.trim();
-                      final newC3= c3.text.trim();
-                      final newC4= c4.text.trim();
-                      final newC5= c5.text.trim();
-                      final newC6= c6.text.trim();
-                      final newC7= c7.text.trim();
-                      final newC8= c8.text.trim();
-                      final newC9= c9.text.trim();
-
-                      updateUserDetails(newC1, newC2, newC3, newC4, newC5, newC6, newC7, newC8, newC9);
-                      // updateLocation(newLatitude, newLongitude);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.grey, // Set the button color to green
+                        updateUserDetails(newC1, newC2, newC3, newC4, newC5, newC6, newC7, newC8, newC9);
+                        // updateLocation(newLatitude, newLongitude);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.grey, // Set the button color to green
+                          padding: EdgeInsets.all(14)// Set the button color to red
+                      ),
+                      child:  Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.save,size: 18,),
+                          SizedBox(width: 4,),
+                          Text("सेव"),
+                        ],
+                      ),
                     ),
-                    child:  Text("सेव"),
                   ),
-
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const PropertyDetails()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green, // Set the button color to green
+                  SizedBox(width: 8,),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const PropertyDetails()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.green, // Set the button color to green
+                          padding: EdgeInsets.all(14)// Set the button color to red
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.arrow_forward,size: 18,),
+                          SizedBox(width: 4,),
+                          const Text('पुढे'),
+                        ],
+                      ),
                     ),
-                    child: const Text('पुढे'),
                   ),
 
                 ],
               ),
             ),
-            
-          ],
-        ),
+          ),
+
+        ],
       ),
     );
   }
@@ -732,3 +669,5 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
     }
   }
 }
+
+
