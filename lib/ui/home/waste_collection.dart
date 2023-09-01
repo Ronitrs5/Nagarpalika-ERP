@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -128,8 +129,8 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
               ],
             ),
 
-            EditText(controller: assesmentNumber, text: 'असेसमेंट नंबर', icon: Icons.numbers,),
-            EditText(controller: assesmentNumber, text: 'मालकाचे नाव', icon: Icons.person,),
+            EditText(controller: assesmentNumber, text: 'असेसमेंट नंबर', icon: Icons.numbers, selected: true,),
+            EditText(controller: assesmentNumber, text: 'मालकाचे नाव', icon: Icons.person, selected: true,),
 
             const Padding(
               padding: EdgeInsets.all(8.0),
