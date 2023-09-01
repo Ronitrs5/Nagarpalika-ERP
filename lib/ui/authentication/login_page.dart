@@ -6,6 +6,8 @@ import 'package:house_cleaning/ui/home/search_assessment.dart';
 import 'package:house_cleaning/ui/home/property_details.dart';
 import 'package:house_cleaning/ui/home/descone.dart';
 import 'package:house_cleaning/ui/home/waste_collection.dart';
+import 'package:lottie/lottie.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
