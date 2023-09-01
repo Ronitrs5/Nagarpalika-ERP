@@ -13,18 +13,13 @@ class PropertyDetails extends StatefulWidget {
 
 class _PropertyDetailsState extends State<PropertyDetails> {
   int selectedRadio = 0;
-  // int groupRoad=0;
-  // int groupSandPani=0;
-  // int groupPani=0;
-  // int groupDrainage=0;
-
+  
   setSelectedRadio(int val) {
     setState(() {
       selectedRadio = val;
     });
   }
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,61 +84,63 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                         style: TextStyle(fontSize: 18.0),
                       ),
 
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SizedBox(
-                                  height: 5000,
-                                  child: Column(
-                                    children: [
-                                      const ListTile(
-                                        title: Text('प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
-                                      ),
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
-                                      ),
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार ड: साधरण प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-                                      const ListTile(
-                                        title: Text('प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
-                                      ),
-
-                                      const Divider(),
-
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          _showImageDialog(context);
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Colors.green, // Set the button color to red
+                      SingleChildScrollView(
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    height: 5000,
+                                    child: Column(
+                                      children: [
+                                        const ListTile(
+                                          title: Text('प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
                                         ),
-                                        child: const Text('In detail'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          child: const Icon(Icons.info_outline_rounded),
+                                        const Divider(),
+                                        const ListTile(
+                                          title: Text('प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
+                                        ),
+                                        const Divider(),
+                                        const ListTile(
+                                          title: Text('प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
+                                        ),
+
+                                        const Divider(),
+                                        const ListTile(
+                                          title: Text('प्रकार ड: साधरण प्रतिचे बांधकाम'),
+                                        ),
+
+                                        const Divider(),
+                                        const ListTile(
+                                          title: Text('प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
+                                        ),
+
+                                        const Divider(),
+                                        const ListTile(
+                                          title: Text('प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
+                                        ),
+
+                                        const Divider(),
+
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            _showImageDialog(context);
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Colors.green, // Set the button color to red
+                                          ),
+                                          child: const Text('In detail'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: const Icon(Icons.info_outline_rounded),
+                          ),
                         ),
                       ),
 

@@ -732,7 +732,4 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
       );
     }
   }
-
-
 }
-

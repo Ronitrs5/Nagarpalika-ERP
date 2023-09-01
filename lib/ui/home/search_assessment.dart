@@ -89,28 +89,31 @@ class _SearchAssessmentState extends State<SearchAssessment> {
             //   ),
             // )
 
-            ElevatedButton(
-              onPressed: () async {
-                final assessmentId = assessmentIdController.text;
-                final assessmentSuccess = await getAssessment(assessmentId);
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  final assessmentId = assessmentIdController.text;
+                  final assessmentSuccess = await getAssessment(assessmentId);
 
-                if (assessmentSuccess) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NewRegistrationPage(),
-                    ),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Error')),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green, // Set the button color to green
+                  if (assessmentSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewRegistrationPage(),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Error')),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green, // Set the button color to green
+                ),
+                child: const Text('Search'),
               ),
-              child: const Text('Search'),
             ),
 
           ],
