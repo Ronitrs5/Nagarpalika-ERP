@@ -84,15 +84,15 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                         style: TextStyle(fontSize: 18.0),
                       ),
 
-                      SingleChildScrollView(
-                        child: Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return SizedBox(
-                                    height: 5000,
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SizedBox(
+                                  height: 5000,
+                                  child: SingleChildScrollView(
                                     child: Column(
                                       children: [
                                         const ListTile(
@@ -135,12 +135,12 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                         ),
                                       ],
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                            child: const Icon(Icons.info_outline_rounded),
-                          ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: const Icon(Icons.info_outline_rounded),
                         ),
                       ),
 
