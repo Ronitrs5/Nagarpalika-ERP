@@ -12,14 +12,12 @@ class PropertyDetails extends StatefulWidget {
 }
 
 class _PropertyDetailsState extends State<PropertyDetails> {
-  int selectedRadio = 0;
-  
-  setSelectedRadio(int val) {
-    setState(() {
-      selectedRadio = val;
-    });
-  }
-  
+  var buildingRadio = 0;
+  var roadRadio=0;
+  var sandpani=0;
+  var waterconnection=0;
+  var drainage=0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,50 +144,62 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   RadioListTile(
                     title: const Text('प्रकार अ'),
                     value: 1,
-                    groupValue: selectedRadio,
+                    groupValue: buildingRadio,
                     onChanged: (val) {
-                      setSelectedRadio(1);
+                      setState(() {
+                        buildingRadio=val!;
+                      });
                     },
                   ),
                   RadioListTile(
                     title: const Text('प्रकार ब'),
                     value: 2,
-                    groupValue: selectedRadio,
+                    groupValue: buildingRadio,
                     onChanged: (val) {
-                      setSelectedRadio(2);
-                    },
+                      setState(() {
+                        buildingRadio=val!;
+                      });
+                      },
                   ),
                   RadioListTile(
                     title: const Text('प्रकार क'),
                     value: 3,
-                    groupValue: selectedRadio,
+                    groupValue: buildingRadio,
                     onChanged: (val) {
-                      setSelectedRadio(3);
-                    },
+                      setState(() {
+                        buildingRadio=val!;
+                      });
+                      },
                   ),
                   RadioListTile(
                     title: const Text('प्रकार ड'),
                     value: 4,
-                    groupValue: selectedRadio,
+                    groupValue: buildingRadio,
                     onChanged: (val) {
-                      setSelectedRadio(4);
-                    },
+                      setState(() {
+                        buildingRadio=val!;
+                      });
+                      },
                   ),
                   RadioListTile(
                     title: const Text('प्रकार इ'),
                     value: 5,
-                    groupValue: selectedRadio,
+                    groupValue: buildingRadio,
                     onChanged: (val) {
-                      setSelectedRadio(5);
-                    },
+                      setState(() {
+                        buildingRadio=val!;
+                      });
+                      },
                   ),
                   RadioListTile(
                     title: const Text('प्रकार ई'),
                     value: 6,
-                    groupValue: selectedRadio,
+                    groupValue: buildingRadio,
                     onChanged: (val) {
-                      setSelectedRadio(6);
-                    },
+                      setState(() {
+                        buildingRadio=val!;
+                      });
+                      },
                   ),
                 ],
               ),
@@ -230,17 +240,21 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   RadioListTile(
                     title: const Text('कच्चा'),
                     value: 1,
-                    groupValue: selectedRadio,
+                    groupValue: roadRadio,
                     onChanged: (val) {
-                      setSelectedRadio(1);
-                    },
+                      setState(() {
+                        roadRadio=val!;
+                      });
+                      },
                   ),
                   RadioListTile(
                     title: const Text('पक्का'),
                     value: 2,
-                    groupValue: selectedRadio,
+                    groupValue: roadRadio,
                     onChanged: (val) {
-                      setSelectedRadio(2);
+                      setState(() {
+                        roadRadio=val!;
+                      });
                     },
                   ),
                 ],
@@ -261,18 +275,22 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   RadioListTile(
                     title: const Text('आहे'),
                     value: 1,
-                    groupValue: selectedRadio,
+                    groupValue: sandpani,
                     onChanged: (val) {
-                      setSelectedRadio(1);
-                    },
+                      setState(() {
+                        sandpani=val!;
+                      });
+                      },
                   ),
                   RadioListTile(
                     title: const Text('नाही'),
                     value: 2,
-                    groupValue: selectedRadio,
+                    groupValue: sandpani,
                     onChanged: (val) {
-                      setSelectedRadio(2);
-                    },
+                      setState(() {
+                        sandpani=val!;
+                      });
+                      },
                   ),
                 ],
               ),
@@ -291,18 +309,22 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   RadioListTile(
                     title: const Text('आहे'),
                     value: 1,
-                    groupValue: selectedRadio,
+                    groupValue: waterconnection,
                     onChanged: (val) {
-                      setSelectedRadio(1);
-                    },
+                      setState(() {
+                        waterconnection=val!;
+                      });
+                      },
                   ),
                   RadioListTile(
                     title: const Text('नाही'),
                     value: 2,
-                    groupValue: selectedRadio,
+                    groupValue: waterconnection,
                     onChanged: (val) {
-                      setSelectedRadio(2);
-                    },
+                      setState(() {
+                        waterconnection=val!;
+                      });
+                      },
                   ),
                 ],
               ),
@@ -347,17 +369,21 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                   RadioListTile(
                     title: const Text('आहे'),
                     value: 1,
-                    groupValue: selectedRadio,
+                    groupValue: drainage,
                     onChanged: (val) {
-                      setSelectedRadio(1);
-                    },
+                      setState(() {
+                        drainage=val!;
+                      });
+                      },
                   ),
                   RadioListTile(
                     title: const Text('नाही'),
                     value: 2,
-                    groupValue: selectedRadio,
+                    groupValue: drainage,
                     onChanged: (val) {
-                      setSelectedRadio(2);
+                      setState(() {
+                        drainage=val!;
+                      });
                     },
                   ),
                 ],
