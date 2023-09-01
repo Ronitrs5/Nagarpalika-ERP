@@ -18,7 +18,6 @@ class _SearchAssessmentState extends State<SearchAssessment> {
   Future<bool> getAssessment(String assessmentID) async {
     final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/PropertyByAssessmentNo/$assessmentID');
     final response = await http.get(url);
-
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -46,7 +45,6 @@ class _SearchAssessmentState extends State<SearchAssessment> {
                 ),
               ),
             ),
-
 
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),

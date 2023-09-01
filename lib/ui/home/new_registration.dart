@@ -581,15 +581,15 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                       final newLatitude = _latitudeController.text;
                       final newLongitude = _longitudeController.text;
 
-                      final newC1= c1.text;
-                      final newC2= c2.text;
-                      final newC3= c3.text;
-                      final newC4= c4.text;
-                      final newC5= c5.text;
-                      final newC6= c6.text;
-                      final newC7= c7.text;
-                      final newC8= c8.text;
-                      final newC9= c9.text;
+                      final newC1= c1.text.trim();
+                      final newC2= c2.text.trim();
+                      final newC3= c3.text.trim();
+                      final newC4= c4.text.trim();
+                      final newC5= c5.text.trim();
+                      final newC6= c6.text.trim();
+                      final newC7= c7.text.trim();
+                      final newC8= c8.text.trim();
+                      final newC9= c9.text.trim();
 
                       updateUserDetails(newC1, newC2, newC3, newC4, newC5, newC6, newC7, newC8, newC9);
                       // updateLocation(newLatitude, newLongitude);
@@ -700,7 +700,6 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
       'area_Name': newC8,
       'plot_Area': newC9,
       'Result': '',
-
     })}');
 
     final response = await http.put(

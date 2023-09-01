@@ -90,51 +90,48 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                             showModalBottomSheet(
                               context: context,
                               builder: (BuildContext context) {
-                                return SizedBox(
-                                  height: 5000,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        const ListTile(
-                                          title: Text('प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
-                                        ),
-                                        const Divider(),
-                                        const ListTile(
-                                          title: Text('प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
-                                        ),
-                                        const Divider(),
-                                        const ListTile(
-                                          title: Text('प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
-                                        ),
+                                return SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      const ListTile(
+                                        title: Text('प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
+                                      ),
+                                      const Divider(),
+                                      const ListTile(
+                                        title: Text('प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
+                                      ),
+                                      const Divider(),
+                                      const ListTile(
+                                        title: Text('प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
+                                      ),
 
-                                        const Divider(),
-                                        const ListTile(
-                                          title: Text('प्रकार ड: साधरण प्रतिचे बांधकाम'),
-                                        ),
+                                      const Divider(),
+                                      const ListTile(
+                                        title: Text('प्रकार ड: साधरण प्रतिचे बांधकाम'),
+                                      ),
 
-                                        const Divider(),
-                                        const ListTile(
-                                          title: Text('प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
-                                        ),
+                                      const Divider(),
+                                      const ListTile(
+                                        title: Text('प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
+                                      ),
 
-                                        const Divider(),
-                                        const ListTile(
-                                          title: Text('प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
-                                        ),
+                                      const Divider(),
+                                      const ListTile(
+                                        title: Text('प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
+                                      ),
 
-                                        const Divider(),
+                                      const Divider(),
 
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            _showImageDialog(context);
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            primary: Colors.green, // Set the button color to red
-                                          ),
-                                          child: const Text('In detail'),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          _showImageDialog(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.green, // Set the button color to red
                                         ),
-                                      ],
-                                    ),
+                                        child: const Text('In detail'),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
