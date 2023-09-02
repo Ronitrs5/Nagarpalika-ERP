@@ -5,6 +5,8 @@ import 'package:lottie/lottie.dart';
 
 import '../authentication/login_page.dart';
 
+String UserID='';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -19,6 +21,9 @@ class _HomePageState extends State<HomePage> {
   bool isPasswordEmpty = false;
 
   bool isPasswordVisible = false;
+
+  FocusNode userIdFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
 
   final TextEditingController userIdController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -72,6 +77,11 @@ class _HomePageState extends State<HomePage> {
 
                         TextField(
                           controller: userIdController,
+                          focusNode: userIdFocusNode,
+                          textInputAction: TextInputAction.next,
+                          onEditingComplete: () {
+                            FocusScope.of(context).requestFocus(passwordFocusNode);
+                          },
                           decoration: InputDecoration(
                             hintText: 'User ID',
                             border: const OutlineInputBorder(),
@@ -88,6 +98,7 @@ class _HomePageState extends State<HomePage> {
 
                         TextField(
                           controller: passwordController,
+                          focusNode: passwordFocusNode,
                           obscureText: !isPasswordVisible, // Toggle the obscureText based on isPasswordVisible
                           decoration: InputDecoration(
                             hintText: 'Password',
@@ -121,6 +132,7 @@ class _HomePageState extends State<HomePage> {
                               : () async {
                             setState(() {
                               isLoading = true;
+                              UserID=userIdController.text;
                               isUserIdEmpty = userIdController.text.isEmpty;
                               isPasswordEmpty = passwordController.text.isEmpty;
                             });
@@ -131,16 +143,18 @@ class _HomePageState extends State<HomePage> {
                               });
 
                             }
+
                             else {
-                              // Proceed with the login logic
-                              final loginSuccess = await loginUser(
-                                  userIdController.text, passwordController.text);
+
+                              final loginSuccess = await loginUser(userIdController.text, passwordController.text);
+
 
                               setState(() {
                                 isLoading = false;
                               });
 
                               if (loginSuccess) {
+
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text('Login Successful')),
                                 );
@@ -247,9 +261,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(20.0),
             child: Text(
-              "© Copyright Sanisoft Infotech. All Rights Reserved Designed by SanisoftGroup",
+              "© Copyright Sanisoft Infotech. All Rights Reserved. Designed by Sanisoft Group",
               textAlign: TextAlign.center,
             ),
           ),

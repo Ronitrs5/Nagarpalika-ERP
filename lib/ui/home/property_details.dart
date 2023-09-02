@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:house_cleaning/ui/home/description.dart';
+import 'package:house_cleaning/ui/home/home_page.dart';
 import 'package:house_cleaning/widgets/button_card.dart';
 import 'package:house_cleaning/widgets/edittext.dart';
 import 'package:photo_view/photo_view.dart';
@@ -32,6 +33,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
   String buildingType='';
 
   String roadSize='';
+
+
 
   @override
   void initState() {
@@ -195,17 +198,36 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                 labelText: 'इमारतीचे प्रत:',
                               ),icon: const Icon(Icons.arrow_drop_down_outlined),
 
-                              items: [
-                                const DropdownMenuItem(value: 'प्रकार अ', child: Text('प्रकार अ',)),
-                                const DropdownMenuItem(value: 'प्रकार ब', child: Text('प्रकार ब')),
-                                const DropdownMenuItem(value: 'प्रकार क', child: Text('प्रकार क')),
-                                const DropdownMenuItem(value: 'प्रकार ड', child: Text('प्रकार ड')),
-                                const DropdownMenuItem(value: 'प्रकार इ', child: Text('प्रकार इ')),
-                                const DropdownMenuItem(value: 'प्रकार ई', child: Text('प्रकार ई')),
+                              items: const [
+                                DropdownMenuItem(value: 'प्रकार अ', child: Text('प्रकार अ',)),
+                                DropdownMenuItem(value: 'प्रकार ब', child: Text('प्रकार ब')),
+                                DropdownMenuItem(value: 'प्रकार क', child: Text('प्रकार क')),
+                                DropdownMenuItem(value: 'प्रकार ड', child: Text('प्रकार ड')),
+                                DropdownMenuItem(value: 'प्रकार इ', child: Text('प्रकार इ')),
+                                DropdownMenuItem(value: 'प्रकार ई', child: Text('प्रकार ई')),
                               ],
                               onChanged: (value) {
                                 setState(() {
-                                  buildingType=value!;
+
+                                  if(value=='प्रकार अ') {
+                                    buildingType = 'अ';
+                                  }
+                                  if(value=='प्रकार ब') {
+                                    buildingType = 'ब';
+                                  }
+                                  if(value=='प्रकार क') {
+                                    buildingType = 'क';
+                                  }
+                                  if(value=='प्रकार ड') {
+                                    buildingType = 'ड';
+                                  }
+                                  if(value=='प्रकार इ') {
+                                    buildingType = 'इ';
+                                  }
+                                  if(value=='प्रकार ई') {
+                                    buildingType = 'ई';
+                                  }
+
                                 });
                               }  // Handle dropdown value change
                           ),
@@ -226,11 +248,11 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                         labelText: 'इमारत समोर रस्ता: ',
                       ),icon: const Icon(Icons.arrow_drop_down_outlined),
 
-                      items: [
-                        const DropdownMenuItem(value: '6 मीटर पर्यंत', child: Text('6 मीटर पर्यंत',)),
-                        const DropdownMenuItem(value: '6 ते 12 मीटर', child: Text('6 ते 12 मीटर')),
-                        const DropdownMenuItem(value: '12 ते 30 मीटर', child: Text('12 ते 30 मीटर')),
-                        const DropdownMenuItem(value: '30 मीटर पेक्षा अधिक', child: Text('30 मीटर पेक्षा अधिक')),
+                      items: const [
+                        DropdownMenuItem(value: '6 मीटर पर्यंत', child: Text('6 मीटर पर्यंत',)),
+                        DropdownMenuItem(value: '6 ते 12 मीटर', child: Text('6 ते 12 मीटर')),
+                        DropdownMenuItem(value: '12 ते 30 मीटर', child: Text('12 ते 30 मीटर')),
+                        DropdownMenuItem(value: '30 मीटर पेक्षा अधिक', child: Text('30 मीटर पेक्षा अधिक')),
                       ],
                       onChanged: (value) {
                         setState(() {
@@ -447,6 +469,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
   Future<void> saveData() async{
     var url=Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyDetails');
     final headers = {'Content-Type': 'application/json'};
+    print("User id  $UserID");
     //todo body needs to be updated
     var body=jsonEncode({
       'assessment_Number':'12345',
@@ -460,6 +483,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
       'water_connection_name':connectionController.text.toString(),
       'no_of_toilet':numberController.text.toString(),
       'drainage':drainage ==0 ? 'आहे':'नाही',
+      'userid': UserID,
     });
 
     await http.put(url,headers: headers,body: body).then((value){
