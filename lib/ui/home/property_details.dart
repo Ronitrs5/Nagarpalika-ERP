@@ -344,8 +344,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
                   Divider(indent: 16,thickness: 1,endIndent: 16,),
 
-                  EditText(controller: connectionController, text: 'कनेक्शन धारकाचे नाव', icon: Icons.person, selected: false,),
-                  EditText(controller: numberController, text: 'संडास संख्या', icon: Icons.bathtub,selected: false,),
+                  EditText(controller: connectionController, text: 'कनेक्शन धारकाचे नाव', icon: Icons.person, selected: true,),
+                  EditText(controller: numberController, text: 'संडास संख्या', icon: Icons.bathtub,selected: true,),
 
                   Divider(indent: 16,endIndent: 16,),
                   Padding(
