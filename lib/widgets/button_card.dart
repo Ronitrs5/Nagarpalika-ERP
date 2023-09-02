@@ -16,23 +16,6 @@ class ButtonsNav extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: (){onPressCancel();},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                  padding: EdgeInsets.all(14), // Set the button color to red
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.cancel,size: 18,),
-                    SizedBox(width: 4,),
-                    const Text('रद्द',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                  ],
-                ),
-              ),
-            ),
             SizedBox(width: 8,),
             Expanded(
               child: ElevatedButton(
