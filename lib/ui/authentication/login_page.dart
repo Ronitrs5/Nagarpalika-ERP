@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("Welcome back"),
         backgroundColor: Colors.blueAccent,
       ),
       drawer: Drawer(
@@ -145,6 +145,240 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
           ],
+        ),
+      ),
+
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+
+              Image.asset(
+                "assets/icon_world.png",
+              width: 250,
+              height: 250,),
+
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                width: double.infinity,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green[50], // Set the background color here
+                      elevation: 0.0,
+                    ),
+                    onPressed: (){
+
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text("How does our app work?",
+                        style: TextStyle(
+                          color: Colors.black
+                      ),),
+                    )
+                ),
+              ),
+
+              const Divider(
+                color: Colors.black,
+                indent: 10,
+                endIndent: 10,
+                height: 30,
+              ),
+              
+              const Padding(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child: Text("Quick Information",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+                ),),
+              ),
+              
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(70)
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            'assets/icon_aboutus.png', // Replace with your image asset path
+                            width: 35, // Set the width of the image
+                            height: 35, // Set the height of the image
+                            fit: BoxFit.cover, // Fit the image within the button bounds
+                          ),
+                        ),
+
+                        const SizedBox(height: 10,),
+
+                        const Text("About Us",
+                          style: TextStyle(
+                            fontSize: 18
+                          ),)
+                        
+                      ],
+                    ),
+
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(70)
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            'assets/icon_process.png', // Replace with your image asset path
+                            width: 35, // Set the width of the image
+                            height: 35, // Set the height of the image
+                            fit: BoxFit.cover, // Fit the image within the button bounds
+                          ),
+                        ),
+
+                        const SizedBox(height: 10,),
+
+                        const Text("Process",
+                          style: TextStyle(
+                              fontSize: 18
+                          ),)
+
+                      ],
+                    ),
+
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(70)
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            'assets/icon_permissions.png', // Replace with your image asset path
+                            width: 35, // Set the width of the image
+                            height: 35, // Set the height of the image
+                            fit: BoxFit.cover, // Fit the image within the button bounds
+                          ),
+                        ),
+
+                        const SizedBox(height: 10,),
+
+                        const Text("Permissions",
+                          style: TextStyle(
+                              fontSize: 18
+                          ),)
+
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(70)
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            'assets/icon_feedbacks.png', // Replace with your image asset path
+                            width: 35, // Set the width of the image
+                            height: 35, // Set the height of the image
+                            fit: BoxFit.cover, // Fit the image within the button bounds
+                          ),
+                        ),
+
+                        const SizedBox(height: 10,),
+
+                        const Text("Feedback",
+                          style: TextStyle(
+                              fontSize: 18
+                          ),)
+
+                      ],
+                    ),
+
+
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(70)
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            'assets/icon_faq.png', // Replace with your image asset path
+                            width: 35, // Set the width of the image
+                            height: 35, // Set the height of the image
+                            fit: BoxFit.cover, // Fit the image within the button bounds
+                          ),
+                        ),
+
+                        const SizedBox(height: 10,),
+
+                        const Text("FAQs",
+                          style: TextStyle(
+                              fontSize: 18
+                          ),)
+
+                      ],
+                    ),
+
+
+
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(70)
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            'assets/icon_help.png', // Replace with your image asset path
+                            width: 35, // Set the width of the image
+                            height: 35, // Set the height of the image
+                            fit: BoxFit.cover, // Fit the image within the button bounds
+                          ),
+                        ),
+
+                        const SizedBox(height: 10,),
+
+                        const Text("Help Center",
+                          style: TextStyle(
+                              fontSize: 18
+                          ),)
+
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+
+
+
+
+            ],
+          ),
         ),
       ),
     );

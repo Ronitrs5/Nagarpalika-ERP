@@ -15,15 +15,17 @@ class PropertyDetails extends StatefulWidget {
 
 class _PropertyDetailsState extends State<PropertyDetails> {
   var buildingRadio = 0;
-  var roadRadio=0;
-  var sandpani=0;
-  var waterconnection=0;
-  var drainage=0;
+  var roadRadio = 0;
+  var sandpani = 0;
+  var waterconnection = 0;
 
-  var _selectedDate=DateTime.now();
-  var zoneController=TextEditingController();
-  var connectionController=TextEditingController();
-  var numberController=TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+  String selectedYearText = '';
+
+  var drainage = 0;
+  var zoneController = TextEditingController();
+  var connectionController = TextEditingController();
+  var numberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +33,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
         actions: [
           IconButton(
             icon: const Icon(Icons.info_outline_rounded),
-            iconSize: 24,// Add your desired icon here
+            iconSize: 24, // Add your desired icon here
             onPressed: () {
               _showCloudyMessagePopup(context);
             },
@@ -47,57 +49,78 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  GestureDetector(onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Select Year"),
-                          content: Container( // Need to use container to add size constraint.
-                            width: 300,
-                            height: 300,
-                            child: YearPicker(
-                              firstDate: DateTime(DateTime.now().year - 200, 1),
-                              lastDate: DateTime(DateTime.now().year, 1),
-                              initialDate: DateTime.now(),
-                              // save the selected date to _selectedDate DateTime variable.
-                              // It's used to set the previous selected date when
-                              // re-showing the dialog.
-                              selectedDate: _selectedDate,
-                              onChanged: (DateTime dateTime) {
-                                // close the dialog when year is selected.
-                                Navigator.pop(context);
-
-                                // Do something with the dateTime selected.
-                                // Remember that you need to use dateTime.year to get the year
-                              },
-                            ),
-                          ),
+                  GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Select Year"),
+                              content: Container(
+                                width: 300,
+                                height: 300,
+                                child: YearPicker(
+                                  firstDate:
+                                      DateTime(DateTime.now().year - 200, 1),
+                                  lastDate: DateTime(DateTime.now().year, 1),
+                                  initialDate:
+                                      _selectedDate, // Use _selectedDate as the initial date.
+                                  selectedDate: _selectedDate,
+                                  onChanged: (DateTime dateTime) {
+                                    // Update the selected date when a year is chosen.
+                                    setState(() {
+                                      _selectedDate = dateTime;
+                                      selectedYearText =
+                                          _selectedDate.year.toString();
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },child: Container(
-                    height: 60,
-                    margin: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      border: Border.all(color:Colors.black45),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 12,),
-                        Icon(Icons.calendar_month,color: Colors.grey,),
-                        SizedBox(width: 8,),
-                        Text('इमरत वापर सुरु झाल्येचे आर्थिक वर्ष:',style: TextStyle(color: Colors.grey),),
-                      ],
-                    ),
-                  )),
-
-                  EditText(controller: zoneController, text: 'भाडे मुल्य झोन क्रमांक', icon: Icons.numbers,selected: false,),
-
-                  Divider(thickness: 1,indent: 16,color: Colors.black12,endIndent: 16,),
+                      child: Container(
+                        height: 60,
+                        margin: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black45),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Row(
+                          children: [
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Icon(
+                              Icons.calendar_month,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              'इमरत वापर सुरु झाल्येचे आर्थिक वर्ष:',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      )),
+                  EditText(
+                    controller: zoneController,
+                    text: 'भाडे मुल्य झोन क्रमांक',
+                    icon: Icons.numbers,
+                    selected: false,
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    indent: 16,
+                    color: Colors.black12,
+                    endIndent: 16,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16,top: 8,right: 16),
+                    padding: const EdgeInsets.only(left: 16, top: 8, right: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -106,9 +129,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           children: [
                             const Text(
                               'इमारतीचे प्रत:', // Radio group title
-                              style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 16.0, fontWeight: FontWeight.bold),
                             ),
-
                             Center(
                               child: GestureDetector(
                                 onTap: () {
@@ -119,40 +142,42 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                         child: Column(
                                           children: [
                                             const ListTile(
-                                              title: Text('प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
+                                              title: Text(
+                                                  'प्रकार अ: पहिल्या प्रतिचे बांधकाम'),
                                             ),
                                             const Divider(),
                                             const ListTile(
-                                              title: Text('प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
+                                              title: Text(
+                                                  'प्रकार ब: दुय्यम प्रतिचे बांधकाम'),
                                             ),
                                             const Divider(),
                                             const ListTile(
-                                              title: Text('प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
+                                              title: Text(
+                                                  'प्रकार क: साधरण दुय्यम प्रतिचे बांधकाम'),
                                             ),
-
                                             const Divider(),
                                             const ListTile(
-                                              title: Text('प्रकार ड: साधरण प्रतिचे बांधकाम'),
+                                              title: Text(
+                                                  'प्रकार ड: साधरण प्रतिचे बांधकाम'),
                                             ),
-
                                             const Divider(),
                                             const ListTile(
-                                              title: Text('प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
+                                              title: Text(
+                                                  'प्रकार इ: निकृष्ट प्रतिचे बांधकाम'),
                                             ),
-
                                             const Divider(),
                                             const ListTile(
-                                              title: Text('प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
+                                              title: Text(
+                                                  'प्रकार ई: तात्पुरते प्रतिचे बांधकाम'),
                                             ),
-
                                             const Divider(),
-
                                             ElevatedButton(
                                               onPressed: () {
                                                 _showImageDialog(context);
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                primary: Colors.green, // Set the button color to red
+                                                primary: Colors
+                                                    .green, // Set the button color to red
                                               ),
                                               child: const Text('In detail'),
                                             ),
@@ -165,7 +190,6 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                 child: const Icon(Icons.info_outline_rounded),
                               ),
                             ),
-
                           ],
                         ),
                         RadioListTile(
@@ -174,7 +198,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: buildingRadio,
                           onChanged: (val) {
                             setState(() {
-                              buildingRadio=val!;
+                              buildingRadio = val!;
                             });
                           },
                         ),
@@ -184,9 +208,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: buildingRadio,
                           onChanged: (val) {
                             setState(() {
-                              buildingRadio=val!;
+                              buildingRadio = val!;
                             });
-                            },
+                          },
                         ),
                         RadioListTile(
                           title: const Text('प्रकार क'),
@@ -194,9 +218,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: buildingRadio,
                           onChanged: (val) {
                             setState(() {
-                              buildingRadio=val!;
+                              buildingRadio = val!;
                             });
-                            },
+                          },
                         ),
                         RadioListTile(
                           title: const Text('प्रकार ड'),
@@ -204,9 +228,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: buildingRadio,
                           onChanged: (val) {
                             setState(() {
-                              buildingRadio=val!;
+                              buildingRadio = val!;
                             });
-                            },
+                          },
                         ),
                         RadioListTile(
                           title: const Text('प्रकार इ'),
@@ -214,9 +238,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: buildingRadio,
                           onChanged: (val) {
                             setState(() {
-                              buildingRadio=val!;
+                              buildingRadio = val!;
                             });
-                            },
+                          },
                         ),
                         RadioListTile(
                           title: const Text('प्रकार ई'),
@@ -224,37 +248,54 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: buildingRadio,
                           onChanged: (val) {
                             setState(() {
-                              buildingRadio=val!;
+                              buildingRadio = val!;
                             });
-                            },
+                          },
                         ),
                       ],
                     ),
                   ),
-                  Divider(thickness: 1,color: Colors.black12,indent: 16,endIndent: 16,),
+                  const Divider(
+                    thickness: 1,
+                    color: Colors.black12,
+                    indent: 16,
+                    endIndent: 16,
+                  ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                     child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.add_road),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.add_road),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1.0),
+                          ),
+                          contentPadding: EdgeInsets.all(16),
+                          labelText: 'इमारत समोर रस्ता: ',
                         ),
-                        contentPadding: EdgeInsets.all(16),
-                        labelText: 'इमारत समोर रस्ता: ',
-                      ),icon: Icon(Icons.arrow_drop_down_outlined),
-
-                      items: [
-                        DropdownMenuItem(value: 'Option 1', child: Text('6 मीटर पर्यंत',)),
-                        DropdownMenuItem(value: 'Option 2', child: Text('6 ते 12 मीटर')),
-                        DropdownMenuItem(value: 'Option 3', child: Text('12 ते 30 मीटर')),
-                        DropdownMenuItem(value: 'Option 4', child: Text('30 मीटर पेक्षा अधिक')),
-                      ],
-                      onChanged: (value) {
-                      }  // Handle dropdown value change
-                    ),
+                        icon: const Icon(Icons.arrow_drop_down_outlined),
+                        items: const [
+                          DropdownMenuItem(
+                              value: 'Option 1',
+                              child: Text(
+                                '6 मीटर पर्यंत',
+                              )),
+                          DropdownMenuItem(
+                              value: 'Option 2', child: Text('6 ते 12 मीटर')),
+                          DropdownMenuItem(
+                              value: 'Option 3', child: Text('12 ते 30 मीटर')),
+                          DropdownMenuItem(
+                              value: 'Option 4',
+                              child: Text('30 मीटर पेक्षा अधिक')),
+                        ],
+                        onChanged: (value) {} // Handle dropdown value change
+                        ),
                   ),
-                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+                  const Divider(
+                    indent: 16,
+                    thickness: 1,
+                    endIndent: 16,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -262,7 +303,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       children: [
                         const Text(
                           'रस्ता:', // Radio group title
-                          style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
                         RadioListTile(
                           title: const Text('कच्चा'),
@@ -270,9 +312,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: roadRadio,
                           onChanged: (val) {
                             setState(() {
-                              roadRadio=val!;
+                              roadRadio = val!;
                             });
-                            },
+                          },
                         ),
                         RadioListTile(
                           title: const Text('पक्का'),
@@ -280,15 +322,18 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: roadRadio,
                           onChanged: (val) {
                             setState(() {
-                              roadRadio=val!;
+                              roadRadio = val!;
                             });
                           },
                         ),
                       ],
                     ),
                   ),
-
-                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+                  const Divider(
+                    indent: 16,
+                    thickness: 1,
+                    endIndent: 16,
+                  ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                     child: Column(
@@ -296,7 +341,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       children: [
                         const Text(
                           'सांडपाण्याची व्‍यवस्‍था:', // Radio group title
-                          style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
                         RadioListTile(
                           title: const Text('आहे'),
@@ -304,9 +350,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: sandpani,
                           onChanged: (val) {
                             setState(() {
-                              sandpani=val!;
+                              sandpani = val!;
                             });
-                            },
+                          },
                         ),
                         RadioListTile(
                           title: const Text('नाही'),
@@ -314,16 +360,18 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: sandpani,
                           onChanged: (val) {
                             setState(() {
-                              sandpani=val!;
+                              sandpani = val!;
                             });
-                            },
+                          },
                         ),
                       ],
                     ),
                   ),
-
-                  Divider(indent: 16,thickness: 1,endIndent: 16,),
-
+                  const Divider(
+                    indent: 16,
+                    thickness: 1,
+                    endIndent: 16,
+                  ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                     child: Column(
@@ -331,7 +379,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       children: [
                         const Text(
                           'पाणी कनेक्शन:', // Radio group title
-                          style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
                         RadioListTile(
                           title: const Text('आहे'),
@@ -339,9 +388,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: waterconnection,
                           onChanged: (val) {
                             setState(() {
-                              waterconnection=val!;
+                              waterconnection = val!;
                             });
-                            },
+                          },
                         ),
                         RadioListTile(
                           title: const Text('नाही'),
@@ -349,20 +398,34 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: waterconnection,
                           onChanged: (val) {
                             setState(() {
-                              waterconnection=val!;
+                              waterconnection = val!;
                             });
-                            },
+                          },
                         ),
                       ],
                     ),
                   ),
-
-                  Divider(indent: 16,thickness: 1,endIndent: 16,),
-
-                  EditText(controller: connectionController, text: 'कनेक्शन धारकाचे नाव', icon: Icons.person, selected: false,),
-                  EditText(controller: numberController, text: 'संडास संख्या', icon: Icons.bathtub,selected: false,),
-
-                  Divider(indent: 16,endIndent: 16,),
+                  const Divider(
+                    indent: 16,
+                    thickness: 1,
+                    endIndent: 16,
+                  ),
+                  EditText(
+                    controller: connectionController,
+                    text: 'कनेक्शन धारकाचे नाव',
+                    icon: Icons.person,
+                    selected: false,
+                  ),
+                  EditText(
+                    controller: numberController,
+                    text: 'संडास संख्या',
+                    icon: Icons.bathtub,
+                    selected: false,
+                  ),
+                  const Divider(
+                    indent: 16,
+                    endIndent: 16,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -370,7 +433,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       children: [
                         const Text(
                           'ड्रेनेज:', // Radio group title
-                          style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
                         RadioListTile(
                           title: const Text('आहे'),
@@ -378,9 +442,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: drainage,
                           onChanged: (val) {
                             setState(() {
-                              drainage=val!;
+                              drainage = val!;
                             });
-                            },
+                          },
                         ),
                         RadioListTile(
                           title: const Text('नाही'),
@@ -388,7 +452,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                           groupValue: drainage,
                           onChanged: (val) {
                             setState(() {
-                              drainage=val!;
+                              drainage = val!;
                             });
                           },
                         ),
@@ -399,15 +463,18 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               ),
             ),
           ),
-          ButtonsNav(onPressCancel: (){
-
-          }, onPressSave: (){}, onPressNext: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
-          }),
+          ButtonsNav(
+              onPressCancel: () {},
+              onPressSave: () {},
+              onPressNext: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DescriptionPage()));
+              }),
         ],
       ),
     );
-
   }
 
   void _showImageDialog(BuildContext context) {
@@ -424,7 +491,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               width: double.infinity,
               height: double.infinity,
               child: PhotoView(
-                imageProvider: const AssetImage('assets/info.jpeg'), // Replace with your image
+                imageProvider: const AssetImage(
+                    'assets/info.jpeg'), // Replace with your image
                 minScale: PhotoViewComputedScale.contained * 0.8,
                 maxScale: PhotoViewComputedScale.covered * 2.5,
                 initialScale: PhotoViewComputedScale.contained,
@@ -445,13 +513,15 @@ class _PropertyDetailsState extends State<PropertyDetails> {
     }
     return items;
   }
+
   void _showCloudyMessagePopup(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return PopUpDialogue(
           title: 'Disclaimer',
-          message: "First save and then proceed to next.\nUnsaved information won't be restored",
+          message:
+              "First save and then proceed to next.\nUnsaved information won't be restored",
         );
       },
     );

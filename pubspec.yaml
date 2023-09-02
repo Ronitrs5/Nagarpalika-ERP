@@ -72,6 +72,14 @@ flutter:
     - assets/icon_moblocation.png
     - assets/trash_car_anim.json
     - assets/earth_anim.json
+    - assets/icon_world.png
+    - assets/icon_faq.png
+    - assets/icon_permissions.png
+    - assets/icon_help.png
+    - assets/icon_aboutus.png
+    - assets/icon_process.png
+    - assets/icon_feedback.png
+    - assets/icon_feedbacks.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
