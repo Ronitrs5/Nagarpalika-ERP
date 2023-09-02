@@ -65,7 +65,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Select Year"),
+                          title: const Text("इमरत वापर सुरु झाल्येचे आर्थिक वर्ष",),
                           content: Container( // Need to use container to add size constraint.
                             width: 300,
                             height: 300,
@@ -83,7 +83,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
                                 setState(() {
                                   _selectedDate=dateTime;
-                                  _selectedDateString='इमरत वापर सुरु झाल्येचे आर्थिक वर्ष:'+ DateFormat("yyyy").format(_selectedDate);
+                                  _selectedDateString= DateFormat("yyyy").format(_selectedDate);
                                 });
                                 // Do something with the dateTime selected.
                                 // Remember that you need to use dateTime.year to get the year
@@ -95,24 +95,24 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     );
                   },child: Container(
                     height: 60,
-                    margin: EdgeInsets.all(16),
+                    margin: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       border: Border.all(color:Colors.black45),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
                       children: [
-                        SizedBox(width: 12,),
-                        Icon(Icons.calendar_month,color: Colors.grey,),
-                        SizedBox(width: 8,),
-                        Text(_selectedDateString,style: TextStyle(color: Colors.black),),
+                        const SizedBox(width: 12,),
+                        const Icon(Icons.calendar_month,color: Colors.grey,),
+                        const SizedBox(width: 8,),
+                        Text(_selectedDateString,style: const TextStyle(color: Colors.black54),),
                       ],
                     ),
                   )),
 
                   EditText(controller: zoneController, text: 'भाडे मुल्य झोन क्रमांक', icon: Icons.numbers,selected: true,),
 
-                  Divider(thickness: 1,indent: 16,color: Colors.black12,endIndent: 16,),
+                  const Divider(thickness: 1,indent: 16,color: Colors.black12,endIndent: 16,),
                   Padding(
                     padding: const EdgeInsets.only(left: 16,top: 8,right: 16),
                     child: Column(
@@ -187,21 +187,21 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                           child: DropdownButtonFormField<String>(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.add_road),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
                                 ),
                                 labelText: 'इमारतीचे प्रत:',
-                              ),icon: Icon(Icons.arrow_drop_down_outlined),
+                              ),icon: const Icon(Icons.arrow_drop_down_outlined),
 
                               items: [
-                                DropdownMenuItem(value: 'प्रकार अ', child: Text('प्रकार अ',)),
-                                DropdownMenuItem(value: 'प्रकार ब', child: Text('प्रकार ब')),
-                                DropdownMenuItem(value: 'प्रकार क', child: Text('प्रकार क')),
-                                DropdownMenuItem(value: 'प्रकार ड', child: Text('प्रकार ड')),
-                                DropdownMenuItem(value: 'प्रकार इ', child: Text('प्रकार इ')),
-                                DropdownMenuItem(value: 'प्रकार ई', child: Text('प्रकार ई')),
+                                const DropdownMenuItem(value: 'प्रकार अ', child: Text('प्रकार अ',)),
+                                const DropdownMenuItem(value: 'प्रकार ब', child: Text('प्रकार ब')),
+                                const DropdownMenuItem(value: 'प्रकार क', child: Text('प्रकार क')),
+                                const DropdownMenuItem(value: 'प्रकार ड', child: Text('प्रकार ड')),
+                                const DropdownMenuItem(value: 'प्रकार इ', child: Text('प्रकार इ')),
+                                const DropdownMenuItem(value: 'प्रकार ई', child: Text('प्रकार ई')),
                               ],
                               onChanged: (value) {
                                 setState(() {
@@ -213,24 +213,24 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       ],
                     ),
                   ),
-                  Divider(thickness: 1,color: Colors.black12,indent: 16,endIndent: 16,),
+                  const Divider(thickness: 1,color: Colors.black12,indent: 16,endIndent: 16,),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                     child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.add_road),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey, width: 1.0),
                         ),
                         contentPadding: EdgeInsets.all(16),
                         labelText: 'इमारत समोर रस्ता: ',
-                      ),icon: Icon(Icons.arrow_drop_down_outlined),
+                      ),icon: const Icon(Icons.arrow_drop_down_outlined),
 
                       items: [
-                        DropdownMenuItem(value: '6 मीटर पर्यंत', child: Text('6 मीटर पर्यंत',)),
-                        DropdownMenuItem(value: '6 ते 12 मीटर', child: Text('6 ते 12 मीटर')),
-                        DropdownMenuItem(value: '12 ते 30 मीटर', child: Text('12 ते 30 मीटर')),
-                        DropdownMenuItem(value: '30 मीटर पेक्षा अधिक', child: Text('30 मीटर पेक्षा अधिक')),
+                        const DropdownMenuItem(value: '6 मीटर पर्यंत', child: Text('6 मीटर पर्यंत',)),
+                        const DropdownMenuItem(value: '6 ते 12 मीटर', child: Text('6 ते 12 मीटर')),
+                        const DropdownMenuItem(value: '12 ते 30 मीटर', child: Text('12 ते 30 मीटर')),
+                        const DropdownMenuItem(value: '30 मीटर पेक्षा अधिक', child: Text('30 मीटर पेक्षा अधिक')),
                       ],
                       onChanged: (value) {
                         setState(() {
@@ -239,7 +239,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                       }  // Handle dropdown value change
                     ),
                   ),
-                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+                  const Divider(indent: 16,thickness: 1,endIndent: 16,),
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -273,7 +273,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     ),
                   ),
 
-                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+                  const Divider(indent: 16,thickness: 1,endIndent: 16,),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                     child: Column(
@@ -307,7 +307,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     ),
                   ),
 
-                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+                  const Divider(indent: 16,thickness: 1,endIndent: 16,),
 
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
@@ -342,12 +342,12 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                     ),
                   ),
 
-                  Divider(indent: 16,thickness: 1,endIndent: 16,),
+                  const Divider(indent: 16,thickness: 1,endIndent: 16,),
 
                   EditText(controller: connectionController, text: 'कनेक्शन धारकाचे नाव', icon: Icons.person, selected: true,),
                   EditText(controller: numberController, text: 'संडास संख्या', icon: Icons.bathtub,selected: true,),
 
-                  Divider(indent: 16,endIndent: 16,),
+                  const Divider(indent: 16,endIndent: 16,),
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -388,7 +388,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
           }, onPressSave: (){
             saveData();
           }, onPressNext: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>DescriptionPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>const DescriptionPage()));
           }),
         ],
       ),
@@ -444,7 +444,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
   }
 
 
-  Future<int> saveData() async{
+  Future<void> saveData() async{
     var url=Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyDetails');
     final headers = {'Content-Type': 'application/json'};
     //todo body needs to be updated
@@ -463,11 +463,12 @@ class _PropertyDetailsState extends State<PropertyDetails> {
     });
 
     await http.put(url,headers: headers,body: body).then((value){
-      print(value.body.toString());
-      print(value.statusCode);
+      print('Response status code: ${value.statusCode}');
+      print('Response body: ${value.body}');
+
+
       return value.statusCode;
     });
 
-    return 404;
   }
 }
