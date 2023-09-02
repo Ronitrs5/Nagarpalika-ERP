@@ -82,6 +82,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
                                 Navigator.pop(context);
 
                                 setState(() {
+                                  _selectedDate=dateTime;
                                   _selectedDateString='इमरत वापर सुरु झाल्येचे आर्थिक वर्ष:'+ DateFormat("yyyy").format(_selectedDate);
                                 });
                                 // Do something with the dateTime selected.
