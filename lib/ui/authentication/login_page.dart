@@ -179,18 +179,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const Divider(
-                color: Colors.black,
+              Divider(
+                color: Colors.green[900],
                 indent: 10,
                 endIndent: 10,
                 height: 30,
               ),
               
               const Padding(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 16),
                 child: Text("Quick Information",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold
                 ),),
               ),
@@ -205,14 +205,14 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.black12,
+                              color: Colors.green[50],
                               borderRadius: BorderRadius.circular(70)
                           ),
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(20),
                           child: Image.asset(
                             'assets/icon_aboutus.png', // Replace with your image asset path
-                            width: 35, // Set the width of the image
-                            height: 35, // Set the height of the image
+                            width: 20, // Set the width of the image
+                            height: 20, // Set the height of the image
                             fit: BoxFit.cover, // Fit the image within the button bounds
                           ),
                         ),
@@ -221,7 +221,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         const Text("About Us",
                           style: TextStyle(
-                            fontSize: 18
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold
                           ),)
                         
                       ],
@@ -231,14 +232,14 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.black12,
+                              color: Colors.green[50],
                               borderRadius: BorderRadius.circular(70)
                           ),
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(20),
                           child: Image.asset(
                             'assets/icon_process.png', // Replace with your image asset path
-                            width: 35, // Set the width of the image
-                            height: 35, // Set the height of the image
+                            width: 20, // Set the width of the image
+                            height: 20, // Set the height of the image
                             fit: BoxFit.cover, // Fit the image within the button bounds
                           ),
                         ),
@@ -247,7 +248,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         const Text("Process",
                           style: TextStyle(
-                              fontSize: 18
+                              fontSize: 14,
+                            fontWeight: FontWeight.bold
                           ),)
 
                       ],
@@ -257,14 +259,14 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.black12,
+                              color: Colors.green[50],
                               borderRadius: BorderRadius.circular(70)
                           ),
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(20),
                           child: Image.asset(
                             'assets/icon_permissions.png', // Replace with your image asset path
-                            width: 35, // Set the width of the image
-                            height: 35, // Set the height of the image
+                            width: 20, // Set the width of the image
+                            height: 20, // Set the height of the image
                             fit: BoxFit.cover, // Fit the image within the button bounds
                           ),
                         ),
@@ -273,7 +275,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         const Text("Permissions",
                           style: TextStyle(
-                              fontSize: 18
+                              fontSize: 14,
+                            fontWeight: FontWeight.bold
                           ),)
 
                       ],
@@ -293,14 +296,14 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.black12,
+                              color: Colors.green[50],
                               borderRadius: BorderRadius.circular(70)
                           ),
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(20),
                           child: Image.asset(
                             'assets/icon_feedbacks.png', // Replace with your image asset path
-                            width: 35, // Set the width of the image
-                            height: 35, // Set the height of the image
+                            width: 20, // Set the width of the image
+                            height: 20, // Set the height of the image
                             fit: BoxFit.cover, // Fit the image within the button bounds
                           ),
                         ),
@@ -309,7 +312,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         const Text("Feedback",
                           style: TextStyle(
-                              fontSize: 18
+                              fontSize: 14,
+                            fontWeight: FontWeight.bold
                           ),)
 
                       ],
@@ -320,14 +324,14 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.black12,
+                              color: Colors.green[50],
                               borderRadius: BorderRadius.circular(70)
                           ),
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(20),
                           child: Image.asset(
                             'assets/icon_faq.png', // Replace with your image asset path
-                            width: 35, // Set the width of the image
-                            height: 35, // Set the height of the image
+                            width: 20, // Set the width of the image
+                            height: 20, // Set the height of the image
                             fit: BoxFit.cover, // Fit the image within the button bounds
                           ),
                         ),
@@ -336,7 +340,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         const Text("FAQs",
                           style: TextStyle(
-                              fontSize: 18
+                              fontSize: 14,
+                            fontWeight: FontWeight.bold
                           ),)
 
                       ],
@@ -348,14 +353,14 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              color: Colors.black12,
+                              color: Colors.green[50],
                               borderRadius: BorderRadius.circular(70)
                           ),
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(20),
                           child: Image.asset(
                             'assets/icon_help.png', // Replace with your image asset path
-                            width: 35, // Set the width of the image
-                            height: 35, // Set the height of the image
+                            width: 20, // Set the width of the image
+                            height: 20, // Set the height of the image
                             fit: BoxFit.cover, // Fit the image within the button bounds
                           ),
                         ),
@@ -364,7 +369,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         const Text("Help Center",
                           style: TextStyle(
-                              fontSize: 18
+                              fontSize: 14,
+                            fontWeight: FontWeight.bold
                           ),)
 
                       ],
