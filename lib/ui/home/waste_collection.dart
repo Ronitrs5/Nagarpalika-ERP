@@ -36,8 +36,11 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
     if(camPermission.isGranted){
     String? qrdata= await scanner.scan();
     if(qrdata!=null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('QR scanned successfully')));
      assesmentNumber.text=qrdata.split("|")[0];
      ownerName.text=qrdata.split("|")[1];
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to scan QR'),backgroundColor: Colors.red,));
     }
     }
     else{
@@ -96,16 +99,16 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
+                      onTap: qrScanner,
                       child:
                       Image.asset('assets/icon_qr.png',width: 100, color: Colors.blueGrey, ),
-                    onTap: qrScanner,
                   ),
 
                 ],
               ),
             ),
 
-            Text("Press to scan",
+            const Text("Press to scan",
               style: TextStyle(
                   color: Colors.blueGrey,
                   fontSize: 18,
@@ -133,8 +136,8 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
               ],
             ),
 
-            EditText(controller: assesmentNumber, text: 'असेसमेंट नंबर', icon: Icons.numbers, selected: true,),
-            EditText(controller: ownerName, text: 'मालकाचे नाव', icon: Icons.person, selected: true,),
+            EditText(controller: assesmentNumber, text: 'असेसमेंट नंबर', icon: Icons.numbers, selected: false,),
+            EditText(controller: ownerName, text: 'मालकाचे नाव', icon: Icons.person, selected: false,),
 
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -216,9 +219,9 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red, 
-                        padding: EdgeInsets.all(8)// Set the button color to red
+                        padding: const EdgeInsets.all(8)// Set the button color to red
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.no_accounts,size: 20,),
@@ -246,10 +249,10 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                         height: 24,
                         child: CircularProgressIndicator(
                           strokeWidth: 2.5,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       )
-                          : Row(
+                          : const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.check),
@@ -285,6 +288,8 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
       print(value.body);
       setState(() {
         isLoading=false;
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data uploaded successfully')));
+
       });
       return value.statusCode;
     });

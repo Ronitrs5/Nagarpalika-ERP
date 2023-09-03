@@ -410,6 +410,8 @@ class _PropertyDetailsState extends State<PropertyDetails> {
           ButtonsNav(isLoading: isLoading,onPressCancel: (){
           }, onPressSave: (){
             saveData();
+
+
           }, onPressNext: (){
             Navigator.push(context, MaterialPageRoute(builder: (context)=>const DescriptionPage()));
           }),
@@ -470,6 +472,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
   Future<void> saveData() async{
     setState(() {
       isLoading=true;
+
     });
     var url=Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyDetails');
     final headers = {'Content-Type': 'application/json'};
@@ -496,6 +499,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
       setState(() {
         isLoading=false;
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data saved successfully')));
       });
       return value.statusCode;
     });

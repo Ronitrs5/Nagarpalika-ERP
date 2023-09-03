@@ -547,7 +547,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                         ),
                       )
-                          : Row(
+                          : const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.save,size: 18,),
@@ -584,7 +584,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PropertyDetails(),
+                            builder: (context) => const PropertyDetails(),
                           ),
                         );
                       }
