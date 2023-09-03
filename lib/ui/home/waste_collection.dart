@@ -22,6 +22,8 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
   var ownerName=TextEditingController();
 
   int selectedRadioButton = 0;
+
+  bool isLoading=false;
   setSelectedRadio(int val) {
     setState(() {
       selectedRadioButton = val;
@@ -33,7 +35,10 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
     var camPermission= await Permission.camera.status;
     if(camPermission.isGranted){
     String? qrdata= await scanner.scan();
-    _showSnackbar(context, qrdata);
+    if(qrdata!=null) {
+     assesmentNumber.text=qrdata.split("|")[0];
+     ownerName.text=qrdata.split("|")[1];
+    }
     }
     else{
       var isGranted= await Permission.camera.request();
@@ -129,7 +134,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
             ),
 
             EditText(controller: assesmentNumber, text: 'असेसमेंट नंबर', icon: Icons.numbers, selected: true,),
-            EditText(controller: assesmentNumber, text: 'मालकाचे नाव', icon: Icons.person, selected: true,),
+            EditText(controller: ownerName, text: 'मालकाचे नाव', icon: Icons.person, selected: true,),
 
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -229,11 +234,22 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 16, 16),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        collect();
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green, // Set the button color to green
                       ),
-                      child: Row(
+                      child: isLoading
+                          ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.5,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
+                      )
+                          : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.check),
@@ -253,32 +269,26 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
   }
 
   Future<int> collect() async{
+    setState(() {
+      isLoading=true;
+    });
     var url=Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/WasteCollection/AddWasteCollection');
     final headers = {'Content-Type': 'application/json'};
     //todo body needs to be updated
     var body=jsonEncode({
-      '':'',
+      'Assessment_Number':assesmentNumber.text,
+      'userid':ownerName.text,
+      'WasteType': selectedRadioButton==0 ? 'ओला वेगळा, सुका वेगळा' : selectedRadioButton==1 ? 'ओला सुका मिक्स' : 'इलेक्ट्रिक'
     });
     
     await http.post(url,headers: headers,body: body).then((value){
+      print(value.body);
+      setState(() {
+        isLoading=false;
+      });
       return value.statusCode;
     });
 
     return 404;
-  }
-  void _showSnackbar(BuildContext context, String? data) {
-    String? d= data;
-    String d2= d??"";
-    final snackBar = SnackBar(
-      content: Text("This is what was scanned:\n"+d2),
-      duration: const Duration(seconds: 10), // Adjust the duration as needed.
-      action: SnackBarAction(
-        label: 'Dismiss',
-        onPressed: () {
-          // You can define an action to be performed when the action button is clicked.
-        },
-      ),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

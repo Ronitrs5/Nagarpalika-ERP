@@ -34,6 +34,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
   String roadSize='';
 
+  bool isLoading=false;
 
 
   @override
@@ -406,7 +407,7 @@ class _PropertyDetailsState extends State<PropertyDetails> {
               ),
             ),
           ),
-          ButtonsNav(onPressCancel: (){
+          ButtonsNav(isLoading: isLoading,onPressCancel: (){
           }, onPressSave: (){
             saveData();
           }, onPressNext: (){
@@ -467,6 +468,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
 
 
   Future<void> saveData() async{
+    setState(() {
+      isLoading=true;
+    });
     var url=Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyDetails');
     final headers = {'Content-Type': 'application/json'};
     print("User id  $UserID");
@@ -490,7 +494,9 @@ class _PropertyDetailsState extends State<PropertyDetails> {
       print('Response status code: ${value.statusCode}');
       print('Response body: ${value.body}');
 
-
+      setState(() {
+        isLoading=false;
+      });
       return value.statusCode;
     });
 

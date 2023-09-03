@@ -49,6 +49,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
   TextEditingController c9 = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
+  bool isLoading=false;
   @override
   void initState() {
     super.initState();
@@ -537,7 +538,16 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
                           primary: Colors.blueAccent, // Set the button color to green
                           padding: const EdgeInsets.all(14)// Set the button color to red
                       ),
-                      child:  const Row(
+                      child:  isLoading
+                          ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.5,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
+                      )
+                          : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.save,size: 18,),
@@ -642,6 +652,9 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
   }
 
   Future<void> updateLocation(String newC1, String newLatitude, String newLongitude) async {
+    setState(() {
+      isLoading=true;
+    });
     final url = Uri.parse('https://nagarpalika-erp-api.azurewebsites.net/api/UpdatePropertyLocation');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
@@ -655,7 +668,11 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
       url,
       headers: headers,
       body: body,
-    );
+    ).then((value){
+      setState(() {
+        isLoading=false;
+      });
+    });
 
     print('Response status code: ${response.statusCode}');
     print('Response body: ${response.body}');

@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class ButtonsNav extends StatelessWidget {
-  const ButtonsNav({Key? key,required this.onPressCancel, required this.onPressSave, required this.onPressNext}) : super(key: key);
+  const ButtonsNav({Key? key,required this.onPressCancel, required this.onPressSave, required this.onPressNext, required this.isLoading}) : super(key: key);
 
   final Function onPressCancel;
   final Function onPressSave;
   final Function onPressNext;
+
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -21,10 +23,19 @@ class ButtonsNav extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: (){onPressSave();},
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.grey, // Set the button color to green
+                    primary: Colors.blueAccent, // Set the button color to green
                     padding: EdgeInsets.all(14)// Set the button color to red
                 ),
-                child:  Row(
+                child: isLoading
+                    ? const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
+                )
+                    : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.save,size: 18,),
