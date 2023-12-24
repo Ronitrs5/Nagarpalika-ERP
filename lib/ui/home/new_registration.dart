@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:house_cleaning/ui/home/maps.dart';
@@ -8,9 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import '../../widgets/edittext.dart';
-
 
 var mainLatitude;
 var mainLongitude;
@@ -30,9 +27,6 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
   bool isButtonEnabled = false;
   bool _isLoading = false;
   @override
-
-
-
 
   Position? currentUserPosition;
   String address='';
@@ -670,6 +664,7 @@ class _NewRegistrationPageState extends State<NewRegistrationPage> {
       body: body,
     ).then((value){
       setState(() {
+
         isLoading=false;
       });
     });

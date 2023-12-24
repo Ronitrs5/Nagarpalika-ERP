@@ -21,12 +21,35 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
   var assesmentNumber=TextEditingController();
   var ownerName=TextEditingController();
 
-  int selectedRadioButton = 0;
+  int selectedRadioButton10 = 0;
+
+  bool hasInput = true; // Track whether input is present or not
+  TextStyle _textStyle = TextStyle(fontSize: 16, color: Colors.black87, );
+
+  @override
+  void initState() {
+    super.initState();
+    assesmentNumber.addListener(_handleTextChange);
+    ownerName.addListener(_handleTextChange);
+
+  }
+
+  void _handleTextChange() {
+    setState(() {
+      hasInput = assesmentNumber.text.isNotEmpty;
+      hasInput = ownerName.text.isNotEmpty;
+      _textStyle = TextStyle(
+        fontSize: 16,
+        color: hasInput ? Colors.black : Colors.grey, // Change color based on input presence
+        fontWeight: hasInput ? FontWeight.bold : FontWeight.normal,
+      );
+    });
+  }
 
   bool isLoading=false;
   setSelectedRadio(int val) {
     setState(() {
-      selectedRadioButton = val;
+      selectedRadioButton10 = val;
     });
   }
 
@@ -36,6 +59,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
     if(camPermission.isGranted){
     String? qrdata= await scanner.scan();
     if(qrdata!=null) {
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('QR scanned successfully')));
      assesmentNumber.text=qrdata.split("|")[0];
      ownerName.text=qrdata.split("|")[1];
@@ -136,8 +160,48 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
               ],
             ),
 
-            EditText(controller: assesmentNumber, text: 'असेसमेंट नंबर', icon: Icons.numbers, selected: false,),
-            EditText(controller: ownerName, text: 'मालकाचे नाव', icon: Icons.person, selected: false,),
+            // EditText(controller: assesmentNumber, text: 'असेसमेंट नंबर', icon: Icons.numbers, selected: false,),
+            // EditText(controller: ownerName, text: 'मालकाचे नाव', icon: Icons.person, selected: false,),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: TextFormField(
+                enabled: false,
+                controller: assesmentNumber,
+                style: _textStyle,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.numbers_rounded),
+                  border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey, width: 1,),
+                      borderRadius: BorderRadius.circular(8)
+                  ),
+                  // label: Text("नोंदणी क्रमांक"),
+                  label: Text('असेसमेंट नंबर',),
+                  alignLabelWithHint: true,
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: TextFormField(
+                enabled: false,
+                controller: ownerName,
+                style: _textStyle,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey, width: 1,),
+                      borderRadius: BorderRadius.circular(8)
+                  ),
+                  // label: Text("नोंदणी क्रमांक"),
+                  label: Text('मालकाचे नाव',),
+                  alignLabelWithHint: true,
+                ),
+              ),
+            ),
+
+
 
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -176,7 +240,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
 
                   title: const Text('ओला वेगळा, सुका वेगळा',style: TextStyle(fontSize: 14),),
                   value: 1,
-                  groupValue: selectedRadioButton,
+                  groupValue: selectedRadioButton10,
                   onChanged: (val) {
                     setSelectedRadio(1);
                   },
@@ -184,7 +248,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                 RadioListTile(
                   title: const Text('ओला सुका मिक्स',style: TextStyle(fontSize: 14),),
                   value: 2,
-                  groupValue: selectedRadioButton,
+                  groupValue: selectedRadioButton10,
                   onChanged: (val) {
                     setSelectedRadio(2);
                   },
@@ -193,7 +257,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                 RadioListTile(
                   title: const Text('इलेक्ट्रिक',style: TextStyle(fontSize: 14),),
                   value: 3,
-                  groupValue: selectedRadioButton,
+                  groupValue: selectedRadioButton10,
                   onChanged: (val) {
                     setSelectedRadio(3);
                   },
@@ -238,7 +302,19 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                     padding: const EdgeInsets.fromLTRB(8, 0, 16, 16),
                     child: ElevatedButton(
                       onPressed: () {
-                        collect();
+
+                        if(assesmentNumber.text.isEmpty){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Please scan QR first'), backgroundColor: Colors.red,));
+                        }
+
+                        else if(selectedRadioButton10==0){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Please collect waste type'), backgroundColor: Colors.red,));
+                        }
+                        else {
+                          collect();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green, // Set the button color to green
@@ -247,7 +323,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
                           ? const SizedBox(
                         width: 24,
                         height: 24,
-                        child: CircularProgressIndicator(
+                          child: CircularProgressIndicator(
                           strokeWidth: 2.5,
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
@@ -281,7 +357,7 @@ class _WasteCollectionPageState extends State<WasteCollectionPage> {
     var body=jsonEncode({
       'Assessment_Number':assesmentNumber.text,
       'userid':ownerName.text,
-      'WasteType': selectedRadioButton==0 ? 'ओला वेगळा, सुका वेगळा' : selectedRadioButton==1 ? 'ओला सुका मिक्स' : 'इलेक्ट्रिक'
+      'WasteType': selectedRadioButton10==1 ? 'ओला वेगळा, सुका वेगळा' : selectedRadioButton10==2 ? 'ओला सुका मिक्स' : selectedRadioButton10==3 ? 'इलेक्ट्रिक' : ''
     });
     
     await http.post(url,headers: headers,body: body).then((value){

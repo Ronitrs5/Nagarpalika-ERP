@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 
 import '../authentication/login_page.dart';
 
-String UserID='';
+String UserID = '';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -43,9 +43,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.blueAccent));
+      const SystemUiOverlayStyle(statusBarColor: Colors.blueAccent),
+    );
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+
       backgroundColor: Colors.white,
       body: Column(
         children: [
@@ -80,15 +81,18 @@ class _HomePageState extends State<HomePage> {
                           focusNode: userIdFocusNode,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () {
-                            FocusScope.of(context).requestFocus(passwordFocusNode);
+                            FocusScope.of(context)
+                                .requestFocus(passwordFocusNode);
                           },
                           decoration: InputDecoration(
                             hintText: 'User ID',
                             border: const OutlineInputBorder(),
-                            errorText: isUserIdEmpty ? 'Please enter User ID' : null,
+                            errorText:
+                                isUserIdEmpty ? 'Please enter User ID' : null,
                             errorBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Colors.red, // Customize the error border color
+                                color: Colors
+                                    .red, // Customize the error border color
                               ),
                             ),
                           ),
@@ -99,30 +103,37 @@ class _HomePageState extends State<HomePage> {
                         TextField(
                           controller: passwordController,
                           focusNode: passwordFocusNode,
-                          obscureText: !isPasswordVisible, // Toggle the obscureText based on isPasswordVisible
+                          obscureText:
+                              !isPasswordVisible, // Toggle the obscureText based on isPasswordVisible
                           decoration: InputDecoration(
                             hintText: 'Password',
                             border: const OutlineInputBorder(),
-                            errorText: isPasswordEmpty ? 'Please enter Password' : null,
+                            errorText: isPasswordEmpty
+                                ? 'Please enter Password'
+                                : null,
                             errorBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Colors.red, // Customize the error border color
+                                color: Colors
+                                    .red, // Customize the error border color
                               ),
                             ),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  isPasswordVisible = !isPasswordVisible; // Toggle the password visibility
+                                  isPasswordVisible =
+                                      !isPasswordVisible; // Toggle the password visibility
                                 });
                               },
                               icon: Icon(
-                                isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                                color: Colors.grey, // Customize the eye icon color
+                                isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color:
+                                    Colors.grey, // Customize the eye icon color
                               ),
                             ),
                           ),
                         ),
-
 
                         const SizedBox(height: 20),
 
@@ -130,61 +141,68 @@ class _HomePageState extends State<HomePage> {
                           onPressed: isLoading
                               ? null
                               : () async {
-                            setState(() {
-                              isLoading = true;
-                              UserID=userIdController.text;
-                              isUserIdEmpty = userIdController.text.isEmpty;
-                              isPasswordEmpty = passwordController.text.isEmpty;
-                            });
+                                  setState(() {
+                                    isLoading = true;
+                                    UserID = userIdController.text;
+                                    isUserIdEmpty =
+                                        userIdController.text.isEmpty;
+                                    isPasswordEmpty =
+                                        passwordController.text.isEmpty;
+                                  });
 
-                            if (isUserIdEmpty || isPasswordEmpty) {
-                              setState(() {
-                                isLoading= false;
-                              });
+                                  if (isUserIdEmpty || isPasswordEmpty) {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  } else {
+                                    final loginSuccess = await loginUser(
+                                        userIdController.text,
+                                        passwordController.text);
+                                    setState(() {
+                                      isLoading = false;
+                                    });
 
-                            }
-
-                            else {
-
-                              final loginSuccess = await loginUser(userIdController.text, passwordController.text);
-
-
-                              setState(() {
-                                isLoading = false;
-                              });
-
-                              if (loginSuccess) {
-
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Login Successful')),
-                                );
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginPage()),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Login failed. Please try again.'),
-                                    backgroundColor: Colors.red, // Customize the error message style
-                                  ),
-                                );
-                              }
-                            }
-                          },
+                                    if (loginSuccess) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Login Successful')),
+                                      );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginPage()),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'Login failed. Please try again.'),
+                                          backgroundColor: Colors
+                                              .red, // Customize the error message style
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: isLoading
                                 ? const SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2.5,
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                              ),
-                            )
-                                : const Text('Login',style: TextStyle(color: Colors.white),),
+                                    width: 24,
+                                    height: 24,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2.5,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.blue),
+                                    ),
+                                  )
+                                : const Text(
+                                    'Login',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                           ),
                         ),
 

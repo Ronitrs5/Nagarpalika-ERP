@@ -71,8 +71,6 @@ class _DashboardPageState extends State<DashboardPage> {
                         const SizedBox(height: 16),
                         ElevatedButton(
                           onPressed: () {
-                            // Add your button action here
-                            print('Button pressed!');
                           },
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
@@ -137,8 +135,6 @@ class _DashboardPageState extends State<DashboardPage> {
                         const SizedBox(height: 16),
                         ElevatedButton(
                           onPressed: () {
-                            // Add your button action here
-                            print('Button pressed!');
                           },
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
@@ -202,8 +198,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         const SizedBox(height: 16),
                         ElevatedButton(
                           onPressed: () {
-                            // Add your button action here
-                            print('Button pressed!');
+
                           },
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
